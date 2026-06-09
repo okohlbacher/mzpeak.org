@@ -1,9 +1,12 @@
 # Illustration brief
 
-Two diagrams ship as hand-drawn SVGs so the site renders today:
+What ships today:
 
-- `../logo.svg` — wordmark / favicon (mass-spectrum peak motif).
-- `format-diagram.svg` — the "ZIP-of-Parquet + index" archive layout (home hero + About page).
+- `../logo.png` — the **official mzPeak wordmark** (blue peak mark + "mzPeak"), from the project deck →
+  used as the nav logo + social/OG image.
+- `../mark.png` — the peak mark alone (square, transparent) → favicon + brand accent.
+- `format-diagram.svg` — hand-drawn "ZIP-of-Parquet + index" archive layout (home hero + About page);
+  a placeholder to refine per item 1 below.
 
 These are intentionally simple placeholders. Suggested **real** illustrations to commission/produce
 (keep them light, flat, 2-color-accent to match the theme: blue `#1558d6`, green `#1a7f37`,

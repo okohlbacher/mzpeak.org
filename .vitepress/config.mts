@@ -12,13 +12,16 @@ export default defineConfig({
   srcExclude: ['README.md', '**/illustrations/README.md'],
 
   head: [
-    ['link', { rel: 'icon', href: '/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/mark.png' }],
     ['meta', { property: 'og:title', content: 'mzPeak — the modern mass spectrometry data format' }],
     ['meta', { property: 'og:description', content: 'Compact, fast, cloud-native. A Parquet-in-ZIP successor to mzML, open and CV-governed by HUPO-PSI.' }],
+    ['meta', { property: 'og:image', content: '/logo.png' }],
   ],
 
   themeConfig: {
-    logo: '/logo.svg',
+    // The official mzPeak wordmark (peak mark + "mzPeak"); hide the duplicate title text.
+    logo: '/logo.png',
+    siteTitle: false,
     nav: [
       { text: 'About', link: '/about' },
       { text: 'Tools', link: '/tools' },
