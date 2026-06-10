@@ -56,3 +56,46 @@
 .vp-doc samp {
   font-variant-numeric: tabular-nums;
 }
+
+/* ── Supporters grid (supporters.md) ───────────────────────── */
+.supporters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 24px 0 8px;
+}
+.supporters .supporter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 28px 20px 20px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: var(--transition-ui), transform var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
+}
+.supporters .supporter:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+.supporters .supporter img {
+  height: 64px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+.supporters .supporter-name {
+  font-weight: var(--weight-semibold);
+  color: var(--text-heading);
+}
+.supporters .supporter-link {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}

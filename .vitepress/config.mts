@@ -36,6 +36,8 @@ export default defineConfig({
       { text: 'About', link: '/about' },
       { text: 'Tools', link: '/tools' },
       { text: 'Examples', link: '/examples' },
+      { text: 'Supporters', link: '/supporters' },
+      { text: 'Contact', link: '/contact' },
       { text: 'Specification ↗', link: 'https://hupo-psi.github.io/mzPeak-specification/' },
     ],
     sidebar: false,

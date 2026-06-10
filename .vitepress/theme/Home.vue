@@ -63,6 +63,8 @@ const families = [
         <a href="#performance">Performance</a>
         <a href="#ecosystem">Ecosystem</a>
         <a href="#examples">Examples</a>
+        <a :href="withBase('/supporters')">Supporters</a>
+        <a :href="withBase('/contact')">Contact</a>
       </nav>
       <div class="hdr-actions">
         <a class="btn btn-ghost" :href="SPEC"><BookOpen />Specification</a>
@@ -375,7 +377,8 @@ const families = [
             <h4>Community</h4>
             <a href="https://www.psidev.info/">HUPO-PSI</a>
             <a href="https://github.com/HUPO-PSI">GitHub</a>
-            <a href="https://www.psidev.info/mailing-lists">Discuss</a>
+            <a :href="withBase('/supporters')">Supporters</a>
+            <a :href="withBase('/contact')">Contact</a>
           </div>
         </div>
       </div>
