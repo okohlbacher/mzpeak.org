@@ -224,25 +224,6 @@ const families = [
           </div>
         </div>
       </div>
-
-      <div class="families">
-        <div class="families-head">
-          <span class="eyebrow"><span class="dot"></span> One container · three data families</span>
-          <h3>The same format, proven across real datasets</h3>
-          <p>The public mzML2mzPeak corpus converts three different kinds of mass-spectrometry data into the one container. Each plot tracks file size along the conversion chain — vendor raw at 100% — so the pattern is easy to read: mzML often grows past the raw file, while mzPeak consistently shrinks it.</p>
-        </div>
-        <div class="families-grid">
-          <figure class="family" v-for="f in families" :key="f.img">
-            <a :href="f.href" target="_blank" rel="noopener">
-              <img :src="withBase(f.img)" :alt="f.alt" loading="lazy" :width="f.w" :height="f.h" />
-            </a>
-            <figcaption>
-              <span class="fam-name">{{ f.name }}</span>
-              <p>{{ f.desc }}</p>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -291,6 +272,25 @@ const families = [
           <div class="bench-x">0.55×</div>
         </div>
         <div class="bench-foot">// mzPeak ÷ mzML file size · lower is better · public benchmark corpus, peak type preserved on conversion. Source: mzPeak white paper, J. Proteome Res. 2025.</div>
+      </div>
+
+      <div class="families">
+        <div class="families-head">
+          <span class="eyebrow"><span class="dot"></span> Across the full corpus · three data families</span>
+          <h3>The same pattern, across real datasets</h3>
+          <p>The bars above are individual files; these plots summarise the full public mzML2mzPeak corpus across three kinds of data. Each tracks file size along the conversion chain — vendor raw at 100% — so the trend is easy to read: mzML often grows past the raw file, while mzPeak consistently shrinks it.</p>
+        </div>
+        <div class="families-grid">
+          <figure class="family" v-for="f in families" :key="f.img">
+            <a :href="f.href" target="_blank" rel="noopener">
+              <img :src="withBase(f.img)" :alt="f.alt" loading="lazy" :width="f.w" :height="f.h" />
+            </a>
+            <figcaption>
+              <span class="fam-name">{{ f.name }}</span>
+              <p>{{ f.desc }}</p>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </section>
