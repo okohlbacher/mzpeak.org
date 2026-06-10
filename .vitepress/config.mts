@@ -13,8 +13,13 @@ export default defineConfig({
   cleanUrls: true,
   lang: 'en-US',
 
+  // The design system is light-only (a dark "data stage" appears only inside
+  // the landing hero/CTA); disable the default theme's dark-mode toggle.
+  appearance: false,
+
   // Content lives at the repo root; keep these out of the page graph.
-  srcExclude: ['README.md', '**/illustrations/README.md'],
+  // The design_handoff_* tree is a design reference, not site content.
+  srcExclude: ['README.md', '**/illustrations/README.md', 'design_handoff_*/**'],
 
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: `${base}mark.png` }],
@@ -31,7 +36,7 @@ export default defineConfig({
       { text: 'About', link: '/about' },
       { text: 'Tools', link: '/tools' },
       { text: 'Examples', link: '/examples' },
-      { text: 'Specification ↗', link: 'https://github.com/HUPO-PSI/mzPeak-specification' },
+      { text: 'Specification ↗', link: 'https://hupo-psi.github.io/mzPeak-specification/' },
     ],
     sidebar: false,
     socialLinks: [

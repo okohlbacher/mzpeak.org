@@ -1,0 +1,141 @@
+/* ============================================================
+   mzPeak — Color tokens (OpenMS identity)
+   Synced to the OpenMS / mzPeak DESIGN HANDOFF.
+   ------------------------------------------------------------
+   A modern scientific instrument: light, hairline-bordered
+   chrome wrapping a DARK "data stage" where the visualization
+   lives. The single UI accent is the mzPeak logo blue
+   (#3157E9, sampled from the mark's peaks); signal red
+   (#C00000) is a sparing flourish. The OpenMS brand spectrum
+   (orange -> blue) is the SECONDARY palette / FLOURISH ONLY.
+   ============================================================ */
+
+:root {
+  /* ---- Cool-neutral ramp (chrome, text, borders) ----------- */
+  --gray-0: #ffffff;
+  --gray-25: #fafbfc;
+  --gray-50: #f4f6f8;
+  --gray-100: #eceff2;
+  --gray-150: #e3e7eb;
+  --gray-200: #dde2e7;
+  --gray-300: #c5ccd3;
+  --gray-400: #9aa4ad;
+  --gray-500: #6b757e;
+  --gray-600: #4b545c;
+  --gray-700: #353c43;
+  --gray-800: #232a30;
+  --gray-900: #151a1e;
+
+  /* ---- Primary — mzPeak logo blue -------------------------- */
+  /* --blue-600 is sampled directly from the mzPeak mark (#3157e9). */
+  --blue-50: #f0f3ff;
+  --blue-100: #e1e7fe;
+  --blue-200: #bbc8fb;
+  --blue-300: #839af6;
+  --blue-400: #5675f0;
+  --blue-500: #4163ec;
+  --blue-600: #3157e9;   /* PRIMARY accent — the mzPeak logo blue */
+  --blue-700: #1e42d2;
+  --blue-800: #20399d;
+  --blue-900: #1c2c6e;
+
+  /* ---- Signal red (sparing flourish, peak/selection lines) -- */
+  --red-50: #fdf2f2;
+  --red-100: #fbe0e0;
+  --red-200: #f1b4b4;
+  --red-500: #d62828;
+  --red-600: #c00000;
+  --red-700: #9b0000;
+
+  /* ---- OpenMS brand spectrum (SECONDARY / FLOURISH — never data)
+     Sampled directly from the OpenMS logo (OpenMS_transparent_blackFont). --- */
+  --openms-orange: #ff9101;
+  --openms-amber: #ff7901;
+  --openms-coral: #ff5e29;
+  --openms-red: #ff4a48;
+  --openms-rose: #ff3b67;
+  --openms-magenta: #f804ce;
+  --openms-purple: #c503f4;
+  --openms-violet: #762bf5;
+  --openms-indigo: #4848ed;
+  --openms-blue: #3355ea;
+  --openms-spectrum: linear-gradient(90deg, #ff9101 0%, #ff6f12 12%, #ff4a48 26%, #ff2f74 37%, #ff15ab 49%, #f804ce 57%, #d203e6 65%, #a814f3 74%, #762bf5 84%, #4848ed 93%, #3355ea 100%); /* @kind color */
+
+  /* ---- The dark "data stage" ------------------------------- */
+  --ink: #0e1216;          /* stage background                   */
+  --ink-raised: #161c22;   /* raised panel on the stage          */
+  --ink-line: #2a323a;     /* hairline on the stage              */
+  --sentinel: #1a1a1a;     /* no-data / absent-pixel colour      */
+
+  /* ---- Secondary / status ---------------------------------- */
+  --indigo-500: #3949ab;
+  --indigo-50: #e8eaf6;
+  --green-700: #2e9e5b;    /* success                            */
+  --amber-500: #ff9101;    /* warning / highlight (brand orange) */
+  --warning-text: #8a6d00;
+  --warning-bg: #fff8e1;
+  --error-text: #c62828;
+  --error-bg: #fce4ec;
+  --error-line: #ef9a9a;
+
+  /* RGB false-colour channels (multi-channel MSI overlays) */
+  --channel-r: #e53935;
+  --channel-g: #43a047;
+  --channel-b: #1e88e5;
+
+  /* ---- Metadata-tree syntax highlights --------------------- */
+  --syntax-key: #b00fd6;   /* object keys (OpenMS purple)        */
+  --syntax-cv: #3157e9;    /* CV accessions (accent blue)       */
+  --syntax-num: #2e9e5b;   /* numeric / boolean (green)         */
+  --syntax-str: #c2410c;   /* string values (burnt orange)      */
+
+  --tooltip-bg: rgba(14, 18, 22, 0.82); /* hover readout chip over the white panel */
+
+  /* ==========================================================
+     SEMANTIC ALIASES — reference these in components.
+     ========================================================== */
+
+  /* Surfaces */
+  --surface-page: var(--gray-0);
+  --bg-app: var(--gray-50);
+  --surface-panel: var(--gray-50);
+  --surface-card: var(--gray-0);
+  --surface-sunken: var(--gray-50);
+  --surface-stage: var(--ink);
+  --surface-accent-soft: var(--blue-50);
+  --surface-secondary-soft: #f6ecfb;
+  --surface-slate-soft: var(--surface-secondary-soft);
+  --surface-error: var(--error-bg);
+  --surface-tooltip: var(--tooltip-bg);
+
+  /* Text */
+  --text-body: var(--gray-700);
+  --text-heading: var(--gray-900);
+  --text-strong: var(--gray-900);
+  --text-secondary: var(--gray-600);
+  --text-muted: var(--gray-500);
+  --text-faint: var(--gray-400);
+  --text-accent: var(--blue-600);
+  --text-link: var(--blue-600);
+  --text-on-accent: #ffffff;
+  --text-on-stage: var(--gray-100);
+  --text-on-stage-muted: #8b97a3;
+  --text-error: var(--error-text);
+
+  /* Lines & accents */
+  --border-default: var(--gray-200);
+  --border-hairline: var(--gray-200);
+  --border-soft: var(--gray-150);
+  --border-strong: var(--gray-300);
+  --border-accent: var(--blue-600);
+  --border-error: var(--error-line);
+
+  --accent: var(--blue-600);
+  --accent-hover: var(--blue-700);   /* darker on hover (per handoff) */
+  --accent-active: var(--blue-800);
+  --accent-soft: var(--blue-50);
+  --accent-secondary: var(--openms-purple);
+  --signal: var(--red-600);
+
+  --focus-ring: 0 0 0 3px rgba(49, 87, 233, 0.28);
+}

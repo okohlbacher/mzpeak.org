@@ -22,15 +22,11 @@ stream the file in place.
 ## Why it's compact
 
 Across the benchmark corpus, mzPeak files are consistently a **fraction of the source mzML size**
-(roughly 0.1–0.6×), losslessly — the payoff of columnar Parquet storage.
-
-> *Illustration placeholder:* a compression chart (mzPeak ÷ mzML size, per dataset) — see the
-> illustration brief in the repo.
+(roughly 0.1–0.6×), losslessly — the payoff of columnar Parquet storage. See the
+[per-instrument numbers](/#performance) on the home page.
 
 ## A worked imaging example
 
 The mouse urinary-bladder MS-imaging dataset reconstructs tissue anatomy *label-free* from lipid ion
 images. Loaded in **mzPeakIV** and assigned to RGB channels, three masses separate the bladder-wall
 layers — urothelium, lamina propria, and muscle — straight from an mzPeak file in the browser.
-
-> *Illustration placeholder:* an RGB MSI overlay screenshot from mzPeakIV.

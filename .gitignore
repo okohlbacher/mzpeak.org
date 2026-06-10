@@ -8,3 +8,8 @@ node_modules/
 \#/
 **/.vitepress/cache/
 **/.vitepress/dist/
+
+# Local design reference (its tokens are vendored into .vitepress/theme/tokens/).
+# Remove this line and `git add -f` if you want to publish the full design package.
+design_handoff_mzpeak_site/
+.claude/launch.json

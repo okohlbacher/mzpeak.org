@@ -1,0 +1,8 @@
+/* ============================================================
+   mzPeak — Webfonts
+   IBM Plex Sans (chrome / body) + IBM Plex Mono (every measured
+   value: m/z, intensities, IDs, coordinates, code). These ARE
+   the brand fonts of the OpenMS / mzPeak design handoff — not a
+   substitution. Loaded from the Google Fonts CDN.
+   ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");

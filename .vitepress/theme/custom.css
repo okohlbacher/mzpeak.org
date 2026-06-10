@@ -1,0 +1,58 @@
+/* ============================================================
+   mzPeak.org — VitePress theme bridge.
+   Ports the mzPeak design-system tokens and maps them onto the
+   VitePress default theme so the supporting content pages
+   (about / tools / examples) inherit the brand. The custom
+   landing page (Home.vue) carries its own layout styles.
+   ============================================================ */
+@import './tokens/fonts.css';
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+
+:root {
+  /* typography.css overloads --text-body as a 12.5px UI size, which clobbers
+     the colour alias from colors.css (imported earlier). This site only ever
+     uses --text-body as a colour, so re-assert the semantic colour here. */
+  --text-body: var(--gray-700);
+
+  /* Brand fonts everywhere. */
+  --vp-font-family-base: var(--font-sans);
+  --vp-font-family-mono: var(--font-mono);
+
+  /* Electric-blue accent (the mzPeak logo blue). brand-1 is used for
+     text/links on white, so it stays a touch darker for contrast. */
+  --vp-c-brand-1: var(--blue-700);
+  --vp-c-brand-2: var(--blue-600);
+  --vp-c-brand-3: var(--accent);
+  --vp-c-brand-soft: var(--accent-soft);
+  --vp-c-brand-softer: var(--blue-50);
+
+  /* Cool-neutral chrome to match the token ramp. */
+  --vp-c-bg: var(--gray-0);
+  --vp-c-bg-alt: var(--gray-25);
+  --vp-c-bg-soft: var(--gray-50);
+  --vp-c-divider: var(--border-default);
+  --vp-c-border: var(--border-default);
+  --vp-c-text-1: var(--text-heading);
+  --vp-c-text-2: var(--text-secondary);
+  --vp-c-text-3: var(--text-muted);
+
+  /* The 2px OpenMS spectrum strip under the nav, mirroring the landing header. */
+  --vp-nav-bg-color: rgba(255, 255, 255, 0.82);
+}
+
+/* OpenMS spectrum hairline under the default-theme nav, matching Home.vue. */
+.VPNav::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: var(--openms-spectrum);
+}
+
+/* Mono with tabular figures for measured values inside prose. */
+.vp-doc code,
+.vp-doc kbd,
+.vp-doc samp {
+  font-variant-numeric: tabular-nums;
+}
