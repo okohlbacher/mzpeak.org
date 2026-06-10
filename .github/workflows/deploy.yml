@@ -27,6 +27,12 @@ jobs:
           node-version: 20
       - run: npm ci || npm install
       - run: npm run build
+        env:
+          # Build for the project-page URL (okohlbacher.github.io/mzpeak.org/) for now.
+          # Remove this when serving from the custom domain www.mzpeak.org.
+          GITHUB_PAGES: 'true'
+      - name: Serve on github.io for now (drop custom domain CNAME)
+        run: rm -f .vitepress/dist/CNAME
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

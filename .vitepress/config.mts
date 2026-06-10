@@ -1,8 +1,13 @@
 import { defineConfig } from 'vitepress'
 
 // Minimal landing site for mzPeak → www.mzpeak.org
-// Custom domain at the apex/www, so base stays '/'.
+// With the custom domain (www.mzpeak.org) base stays '/'. When deploying to the
+// GitHub Pages project URL (okohlbacher.github.io/mzpeak.org/) the CI sets
+// GITHUB_PAGES=true so assets resolve under the /mzpeak.org/ path instead.
+const base = process.env.GITHUB_PAGES === 'true' ? '/mzpeak.org/' : '/'
+
 export default defineConfig({
+  base,
   title: 'mzPeak',
   description: 'The modern, compact, cloud-native mass spectrometry data format.',
   cleanUrls: true,
@@ -12,10 +17,10 @@ export default defineConfig({
   srcExclude: ['README.md', '**/illustrations/README.md'],
 
   head: [
-    ['link', { rel: 'icon', type: 'image/png', href: '/mark.png' }],
+    ['link', { rel: 'icon', type: 'image/png', href: `${base}mark.png` }],
     ['meta', { property: 'og:title', content: 'mzPeak — the modern mass spectrometry data format' }],
     ['meta', { property: 'og:description', content: 'Compact, fast, cloud-native. A Parquet-in-ZIP successor to mzML, open and CV-governed by HUPO-PSI.' }],
-    ['meta', { property: 'og:image', content: '/logo.png' }],
+    ['meta', { property: 'og:image', content: `${base}logo.png` }],
   ],
 
   themeConfig: {
