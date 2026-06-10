@@ -99,3 +99,24 @@
   font-size: var(--text-sm);
   color: var(--text-muted);
 }
+
+/* ── Compression boxplots (about.md) ───────────────────────── */
+.ratio-figs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0 8px;
+}
+.ratio-figs a { display: block; line-height: 0; }
+.ratio-figs img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: #fff;
+  transition: border-color var(--dur-fast) var(--ease-standard);
+}
+.ratio-figs a:hover img { border-color: var(--accent); }
+@media (max-width: 720px) {
+  .ratio-figs { grid-template-columns: 1fr; max-width: 420px; }
+}

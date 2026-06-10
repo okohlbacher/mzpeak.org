@@ -1,3 +1,7 @@
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # What is mzPeak?
 
 **mzPeak** is a next-generation open file format for mass spectrometry data — designed as the
@@ -23,6 +27,18 @@ in a layout built for today's data volumes and cloud workflows.
   already uses. A versioned validator checks conformance.
 - **Extensible without forking.** New kinds of data attach through documented *entity-type* and
   *data-kind* mechanisms, so the format grows by extension rather than by incompatible variants.
+
+## Smaller, on real data
+
+Across three families of public datasets, mzPeak is consistently about half the size of the original
+vendor raw file — and a fraction of the equivalent mzML. [Browse the example data ↗](https://object.storage.eu01.onstackit.cloud/v09/index.html),
+or see the [per-instrument numbers](/#performance) on the home page.
+
+<div class="ratio-figs">
+  <a href="https://object.storage.eu01.onstackit.cloud/v09/mass-spec.html" target="_blank" rel="noopener"><img :src="withBase('/figures/mass-spec-ratios.png')" alt="General MS data: mzPeak about 50% of the vendor raw size" /></a>
+  <a href="https://object.storage.eu01.onstackit.cloud/v09/imaging.html" target="_blank" rel="noopener"><img :src="withBase('/figures/imaging-ratios.png')" alt="Imaging MS (MSI): mzPeak about 35% of the vendor raw size" /></a>
+  <a href="https://object.storage.eu01.onstackit.cloud/v09/sdrf.html" target="_blank" rel="noopener"><img :src="withBase('/figures/sdrf-ratios.png')" alt="Study-design embedding: mzPeak about 45% of the vendor raw size" /></a>
+</div>
 
 ## What's inside an archive
 
