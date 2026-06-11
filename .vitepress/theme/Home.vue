@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
 import { withBase } from 'vitepress'
 import {
-  BookOpen, Github, FileText, Play,
+  BookOpen, Github, Menu, X, FileText, Play,
   Minimize2, Cloud, Gauge, BrainCircuit, Unlock, Puzzle, ShieldCheck, ArrowLeftRight,
   Package, Table2, Tags, FileJson2, Layers,
   BookMarked, Binary, Repeat, ShieldCheck as ShieldCheck2, Activity, Grid2x2,
@@ -10,9 +11,9 @@ import {
 
 const mark = withBase('/mark.png')
 
-// We do not host the specification on mzpeak.org — it lives in the separate
-// HUPO-PSI spec repo. Point every "Specification" affordance there.
-const SPEC = 'https://hupo-psi.github.io/mzPeak-specification/'
+// The V0.9 specification is embedded on this site under /spec/ (built from the
+// HUPO-PSI spec repo at deploy time). Point every "Specification" affordance there.
+const SPEC = withBase('/spec/')
 const WHITEPAPER = 'https://pubs.acs.org/doi/full/10.1021/acs.jproteome.5c00435'
 const EXAMPLES = 'https://object.storage.eu01.onstackit.cloud/v09/index.html'
 
@@ -44,6 +45,37 @@ const families = [
     desc: 'Studies that carry their SDRF / ISA sample annotation alongside the data — kept in the archive, still near 45%.',
   },
 ]
+
+// Hero figure carousel — figures from the mzPeak white paper / deck + live viewers.
+const slides = [
+  { src: '/hero/container.png', caption: 'Parquet tables in one container',
+    alt: 'The mzPeak abstract figure: a shipping container labelled “mzPeak / Parquet” holding spectra and metadata.' },
+  { src: '/hero/anatomy.png', caption: 'Anatomy of an mzPeak archive',
+    alt: 'Diagram of an mzPeak archive: a JSON index plus Parquet tables for spectrum and chromatogram data and metadata, inside one container.' },
+  { src: '/figures/mass-spec-ratios.png', caption: 'Smaller than mzML, losslessly',
+    alt: 'Compression overview for general MS data: vendor raw at 100%, mzML inflating past it, and mzPeak at roughly half the raw size.' },
+  { src: '/hero/explorer.png', caption: 'Open any file in your browser',
+    alt: 'The mzPeak Explorer viewer showing a loaded run — summary, spectra and chromatograms — streamed in the browser.' },
+  { src: '/hero/mzpeakiv.png', caption: 'MS-imaging in the browser',
+    alt: 'The mzPeakIV imaging viewer showing an ion image reconstructed from a mouse urinary-bladder MS-imaging dataset.' },
+]
+const menuOpen = ref(false)
+const current = ref(0)
+const playing = ref(true)
+let timer: ReturnType<typeof setInterval> | undefined
+const stop = () => { if (timer) clearInterval(timer); timer = undefined }
+// only auto-advances while "playing" (the explicit toggle); hover still pauses.
+const start = () => { stop(); if (playing.value) timer = setInterval(next, 5500) }
+// Advancing (auto or manual) re-arms the dwell so a click doesn't get skipped.
+const go = (i: number) => { current.value = (i + slides.length) % slides.length; if (timer) start() }
+const next = () => go(current.value + 1)
+const prev = () => go(current.value - 1)
+const togglePlay = () => { playing.value = !playing.value; playing.value ? start() : stop() }
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) playing.value = false
+  else start()
+})
+onUnmounted(stop)
 </script>
 
 <template>
@@ -58,17 +90,20 @@ const families = [
         <img :src="mark" alt="" />
         <b>mzPeak</b>
       </a>
-      <nav class="hdr-nav">
-        <a href="#format">Format</a>
-        <a href="#performance">Performance</a>
-        <a href="#ecosystem">Ecosystem</a>
-        <a href="#examples">Examples</a>
+      <nav class="hdr-nav" :class="{ open: menuOpen }" @click="menuOpen = false">
+        <a :href="withBase('/about')">Governance</a>
+        <a :href="withBase('/tools')">Tools</a>
+        <a :href="withBase('/examples')">Try it</a>
         <a :href="withBase('/supporters')">Supporters</a>
         <a :href="withBase('/contact')">Contact</a>
+        <a :href="SPEC" target="_self">Specification</a>
       </nav>
       <div class="hdr-actions">
-        <a class="btn btn-ghost" :href="SPEC"><BookOpen />Specification</a>
-        <a class="btn btn-primary" href="https://github.com/HUPO-PSI"><Github />GitHub</a>
+        <a class="hdr-gh" href="https://github.com/HUPO-PSI" aria-label="mzPeak on GitHub"><Github /></a>
+        <button class="hdr-burger" type="button" @click="menuOpen = !menuOpen"
+                :aria-expanded="menuOpen" aria-label="Toggle navigation menu">
+          <X v-if="menuOpen" /><Menu v-else />
+        </button>
       </div>
     </div>
     <div class="hdr-spectrum"></div>
@@ -77,7 +112,7 @@ const families = [
   <main id="main">
 
   <!-- ── Hero ───────────────────────────────────────────── -->
-  <section class="hero on-dark" id="top">
+  <section class="hero" id="top">
     <div class="wrap-wide hero-in">
       <div>
         <span class="eyebrow hero-eyebrow"><span class="dot"></span> Open standard · HUPO-PSI</span>
@@ -85,7 +120,7 @@ const families = [
         <p class="hero-lead">Compact, fast, and cloud-native — a Parquet-in-ZIP successor to mzML. Losslessly smaller, and randomly addressable straight over HTTP.</p>
         <div class="hero-cta">
           <a class="btn btn-primary btn-lg" :href="WHITEPAPER"><FileText />Read the white paper</a>
-          <a class="btn btn-secondary btn-lg" :href="EXAMPLES"><Play />Browse live examples</a>
+          <a class="btn btn-secondary btn-lg" :href="withBase('/examples')"><Play />Browse live examples</a>
         </div>
         <div class="hero-trust">
           <span>Governed by <b>HUPO-PSI</b></span>
@@ -94,42 +129,32 @@ const families = [
         </div>
       </div>
 
-      <!-- hero visual: a spectrum on the data stage -->
-      <div class="scope">
-        <div class="scope-bar">
-          <span class="t">spectrum</span>
-          <span class="scope-tag">MS1 · profile</span>
-          <span class="grow"></span>
-          <span class="t mono">12_80.mzpeak</span>
+      <!-- hero visual: figure carousel from the white paper / HUPO pitch deck -->
+      <div class="shots" @mouseenter="stop" @mouseleave="start"
+           role="group" aria-roledescription="carousel" aria-label="mzPeak in figures">
+        <div class="shots-frame">
+          <img v-for="(s, i) in slides" :key="i" class="shot-img"
+               :class="{ on: i === current }" :src="withBase(s.src)" :alt="s.alt"
+               :aria-hidden="i !== current" />
+          <button class="shots-arrow prev" type="button" @click="prev" aria-label="Previous figure">‹</button>
+          <button class="shots-arrow next" type="button" @click="next" aria-label="Next figure">›</button>
         </div>
-        <div class="scope-body">
-          <div class="scope-read"><span class="k">m/z</span> 478.9213 · <span class="k">int</span> 1.42e8</div>
-          <svg class="spec" viewBox="0 0 560 220" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="specfill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="rgba(49,87,233,0.34)" />
-                <stop offset="100%" stop-color="rgba(49,87,233,0)" />
-              </linearGradient>
-            </defs>
-            <path class="spec-area" d="M0,212 L40,210 L80,205 L120,206 L150,180 L170,150 L185,196 L210,202 L240,120 L255,40 L268,150 L290,200 L320,188 L350,196 L380,150 L400,96 L412,18 L424,110 L450,190 L480,200 L520,208 L560,212 L560,220 L0,220 Z" />
-            <path class="spec-line" d="M0,212 L40,210 L80,205 L120,206 L150,180 L170,150 L185,196 L210,202 L240,120 L255,40 L268,150 L290,200 L320,188 L350,196 L380,150 L400,96 L412,18 L424,110 L450,190 L480,200 L520,208 L560,212" />
-            <line class="spec-marker" x1="412" y1="18" x2="412" y2="212" />
-          </svg>
-          <div class="scope-axis"><span>120</span><span>500</span><span>900</span><span>1400</span><span>1804 m/z</span></div>
+        <div class="shots-bar">
+          <span class="shots-cap mono">{{ slides[current].caption }}</span>
+          <span class="shots-dots">
+            <button class="shots-play" type="button" @click="togglePlay"
+                    :aria-label="playing ? 'Pause figure slideshow' : 'Play figure slideshow'"
+                    :aria-pressed="!playing">{{ playing ? '❚❚' : '▶' }}</button>
+            <button v-for="(s, i) in slides" :key="i" type="button" class="dot"
+                    :class="{ on: i === current }" @click="go(i)"
+                    :aria-current="i === current"
+                    :aria-label="`Show figure ${i + 1}: ${s.caption}`"></button>
+          </span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Stat band ──────────────────────────────────────── -->
-  <section class="stats">
-    <div class="wrap-wide stats-in">
-      <div class="stat"><div class="v">0.1–0.6<span class="u">×</span></div><div class="k">the size of the equivalent mzML — losslessly</div></div>
-      <div class="stat"><div class="v">1 <span class="u">spectrum</span></div><div class="k">streamed from a multi-gigabyte file, no download</div></div>
-      <div class="stat"><div class="v">7 <span class="u">langs</span></div><div class="k">reference SDKs — Rust, Python, R, C#, Java, TypeScript, C++</div></div>
-      <div class="stat"><div class="v">100<span class="u">%</span></div><div class="k">CV-governed by the PSI-MS controlled vocabulary</div></div>
-    </div>
-  </section>
 
   <!-- ── Features ───────────────────────────────────────── -->
   <section class="sec" id="why">
@@ -179,7 +204,7 @@ const families = [
         <div class="feat">
           <span class="feat-ico"><ShieldCheck /></span>
           <h3>Secure</h3>
-          <p>Encrypt any part of the file column-by-column — so sensitive clinical data is protected at rest, with TLS in transit. Uses AES-GCM with post-quantum-safe encryption.</p>
+          <p>Parquet's modular encryption can protect individual columns or files with AES-GCM, leaving the rest of the archive readable. How sensitive index fields and post-quantum-safe schemes are handled is an open design question.</p>
           <span class="tag">AES-GCM · per-column</span>
         </div>
         <div class="feat">
@@ -276,24 +301,6 @@ const families = [
         <div class="bench-foot">// mzPeak ÷ mzML file size · lower is better · public benchmark corpus, peak type preserved on conversion. Source: mzPeak white paper, J. Proteome Res. 2025.</div>
       </div>
 
-      <div class="families">
-        <div class="families-head">
-          <span class="eyebrow"><span class="dot"></span> Across the full corpus · three data families</span>
-          <h3>The same pattern, across real datasets</h3>
-          <p>The bars above are individual files; these plots summarise the full public mzML2mzPeak corpus across three kinds of data. Each tracks file size along the conversion chain — vendor raw at 100% — so the trend is easy to read: mzML often grows past the raw file, while mzPeak consistently shrinks it.</p>
-        </div>
-        <div class="families-grid">
-          <figure class="family" v-for="f in families" :key="f.img">
-            <a :href="f.href" target="_blank" rel="noopener">
-              <img :src="withBase(f.img)" :alt="f.alt" loading="lazy" :width="f.w" :height="f.h" />
-            </a>
-            <figcaption>
-              <span class="fam-name">{{ f.name }}</span>
-              <p>{{ f.desc }}</p>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -303,10 +310,10 @@ const families = [
       <div class="sec-head">
         <span class="eyebrow"><span class="dot"></span> Tools &amp; ecosystem</span>
         <h2>Everything around mzPeak is open source</h2>
-        <p>A specification, reference readers and writers, converters, a conformance validator, and in-browser viewers.</p>
+        <p>A specification, reference readers and writers, converters, a conformance validator, and in-browser viewers. <a :href="withBase('/tools')">Browse the Build hub →</a></p>
       </div>
       <div class="eco-grid">
-        <a class="eco" :href="SPEC">
+        <a class="eco" :href="SPEC" target="_self">
           <div class="eco-h"><BookMarked /><span class="nm">Specification</span><ArrowUpRight class="arrow" /></div>
           <p>The canonical format spec — JSON Schemas, controlled-vocabulary rules, and prose.</p>
         </a>
@@ -336,13 +343,13 @@ const families = [
   </section>
 
   <!-- ── CTA ────────────────────────────────────────────── -->
-  <section class="cta on-dark">
+  <section class="cta">
     <div class="wrap cta-in">
       <span class="eyebrow hero-eyebrow"><span class="dot"></span> Open &amp; community-governed</span>
       <h2 style="margin-top:16px">Build on the format</h2>
       <p>mzPeak is developed as an open community effort under HUPO-PSI. The specification is language-independent — start from the spec, validate against the conformance profile, and ship.</p>
       <div class="cta-btns">
-        <a class="btn btn-primary btn-lg" :href="SPEC"><BookOpen />Read the specification</a>
+        <a class="btn btn-primary btn-lg" :href="SPEC" target="_self"><BookOpen />Read the specification</a>
         <a class="btn btn-secondary btn-lg" href="https://www.psidev.info/mzpeak"><ExternalLink />mzPeak at HUPO-PSI</a>
       </div>
     </div>
@@ -363,7 +370,7 @@ const families = [
             <h4>Format</h4>
             <a href="#format">What's inside</a>
             <a href="#performance">Performance</a>
-            <a :href="SPEC">Specification</a>
+            <a :href="SPEC" target="_self">Specification</a>
             <a :href="WHITEPAPER">White paper</a>
           </div>
           <div class="ftr-col">
@@ -431,14 +438,20 @@ const families = [
   background: rgba(255,255,255,0.82); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-default);
 }
-.hdr-in { display: flex; align-items: center; gap: 28px; height: 60px; }
+.hdr-in { display: flex; align-items: center; gap: 28px; height: 64px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .brand img { height: 26px; display: block; }
 .brand b { font-size: 18px; font-weight: var(--weight-semibold); color: var(--text-heading); letter-spacing: -0.01em; }
-.hdr-nav { display: flex; gap: 22px; margin-left: 8px; }
+.hdr-nav { display: flex; gap: 22px; margin-left: auto; }
 .hdr-nav a { font-size: var(--text-md); font-weight: var(--weight-medium); color: var(--text-secondary); text-decoration: none; transition: var(--transition-ui); }
 .hdr-nav a:hover { color: var(--accent); }
-.hdr-actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.hdr-actions { display: flex; align-items: center; gap: 12px; }
+.hdr-gh { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; color: var(--text-secondary); border-radius: var(--radius-md); transition: var(--transition-ui); }
+.hdr-gh:hover { color: var(--accent); }
+.hdr-gh svg { width: 20px; height: 20px; }
+.hdr-burger { display: none; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0; border: 0; background: transparent; color: var(--text-heading); cursor: pointer; border-radius: var(--radius-md); }
+.hdr-burger svg { width: 22px; height: 22px; }
+.hdr-burger:hover { color: var(--accent); }
 .hdr-spectrum { height: 2px; background: var(--openms-spectrum); }
 
 /* ── Buttons ────────────────────────────────────────────── */
@@ -457,74 +470,78 @@ const families = [
 .btn-ghost { background: transparent; color: var(--text-secondary); }
 .btn-ghost:hover { color: var(--accent); }
 .btn-lg { font-size: var(--text-section); padding: 13px 24px; }
-/* on dark */
-.on-dark .btn-secondary { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.22); }
-.on-dark .btn-secondary:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.12); }
-.on-dark .btn-ghost { color: var(--text-on-stage); }
-.on-dark .btn-ghost:hover { color: #fff; }
-
-/* ── Hero (dark data stage) ─────────────────────────────── */
+/* ── Hero (light) ───────────────────────────────────────── */
 .hero {
-  background-color: var(--ink);
-  background-image: radial-gradient(rgba(86,117,240,0.12) 1px, transparent 1px);
-  background-size: 22px 22px;
-  color: var(--text-on-stage);
+  background: linear-gradient(180deg, var(--gray-0) 0%, var(--gray-25) 100%);
+  color: var(--text-body);
   overflow: hidden;
-  border-bottom: 1px solid var(--ink-line);
+  border-bottom: 1px solid var(--border-default);
 }
 .hero::before {
   content: ""; position: absolute; inset: 0;
-  background: radial-gradient(120% 80% at 70% 0%, rgba(49,87,233,0.30), transparent 60%);
+  background: radial-gradient(120% 80% at 78% -10%, rgba(49,87,233,0.08), transparent 60%);
   pointer-events: none;
 }
 .hero-in { position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; padding: 92px 0 84px; }
-.hero h1 { color: #fff; font-size: var(--text-hero); font-weight: var(--weight-semibold); line-height: 1.02; }
-.hero h1 .acc { color: var(--blue-300); }
-.hero-lead { margin: 22px 0 0; font-size: var(--text-lead); line-height: 1.5; color: #c2cbd6; max-width: 33ch; }
+.hero h1 { color: var(--text-heading); font-size: var(--text-hero); font-weight: var(--weight-semibold); line-height: 1.02; }
+.hero h1 .acc { color: var(--accent); }
+.hero-lead { margin: 22px 0 0; font-size: var(--text-lead); line-height: 1.5; color: var(--text-secondary); max-width: 33ch; }
 .hero-cta { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
-.hero-eyebrow { color: #9fb0f5; }
-.hero-eyebrow .dot { background: #9fb0f5; }
-.hero-trust { margin-top: 36px; display: flex; align-items: center; gap: 14px; font-size: var(--text-sm); color: var(--text-on-stage-muted); flex-wrap: wrap; }
-.hero-trust .sep { width: 1px; height: 12px; background: var(--ink-line); }
-.hero-trust b { color: #c2cbd6; font-weight: var(--weight-medium); }
+.hero-eyebrow { color: var(--accent); }
+.hero-eyebrow .dot { background: var(--accent); }
+.hero-trust { margin-top: 36px; display: flex; align-items: center; gap: 14px; font-size: var(--text-sm); color: var(--text-muted); flex-wrap: wrap; }
+.hero-trust .sep { width: 1px; height: 12px; background: var(--border-strong); }
+.hero-trust b { color: var(--text-secondary); font-weight: var(--weight-medium); }
 
-/* hero visual — framed spectrum panel */
-.scope {
-  position: relative; background: rgba(13,17,22,0.6); border: 1px solid var(--ink-line);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-pop); overflow: hidden;
+/* hero visual — figure carousel */
+.shots { display: flex; flex-direction: column; gap: 12px; }
+.shots-frame {
+  position: relative; aspect-ratio: 16 / 9; background: #fff;
+  border: 1px solid var(--border-default); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2); overflow: hidden;
 }
-.scope-bar { display: flex; align-items: center; gap: 7px; padding: 9px 12px; border-bottom: 1px solid var(--ink-line); }
-.scope-bar .t { font-family: var(--font-mono); font-size: 11px; color: var(--text-on-stage-muted); }
-.scope-bar .grow { flex: 1; }
-.scope-tag { font-family: var(--font-mono); font-size: 10px; color: var(--blue-300); border: 1px solid rgba(86,117,240,0.40); border-radius: 999px; padding: 2px 8px; }
-.scope-body { position: relative; padding: 10px 12px 4px; }
-.scope-read {
-  position: absolute; top: 14px; right: 16px; z-index: 3;
-  font-family: var(--font-mono); font-size: 11px; color: #fff;
-  background: var(--tooltip-bg); border: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius-xs); padding: 4px 8px; line-height: 1.4;
+.shot-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain; display: block; background: #fff;
+  opacity: 0; transition: opacity 0.45s ease;
 }
-.scope-read .k { color: var(--text-on-stage-muted); }
-.scope svg.spec { display: block; width: 100%; height: 220px; }
-.spec-line { fill: none; stroke: var(--blue-400); stroke-width: 2; }
-.spec-area { fill: url(#specfill); stroke: none; }
-.spec-marker { stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 4 4; }
-.scope-axis { display: flex; justify-content: space-between; padding: 2px 12px 10px; font-family: var(--font-mono); font-size: 10px; color: var(--text-on-stage-muted); }
+.shot-img.on { opacity: 1; }
+.shots-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 22px; line-height: 1; color: #fff; cursor: pointer; opacity: 0;
+  background: rgba(13,17,22,0.55); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
+  transition: var(--transition-ui), opacity var(--dur-fast) var(--ease-standard);
+}
+.shots-frame:hover .shots-arrow, .shots-arrow:focus-visible { opacity: 1; }
+.shots-arrow:hover { background: var(--accent); border-color: var(--accent); }
+.shots-arrow.prev { left: 10px; }
+.shots-arrow.next { right: 10px; }
+.shots-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.shots-cap { font-size: var(--text-sm); color: var(--text-muted); }
+.shots-dots { display: flex; gap: 8px; }
+.shots-dots .dot {
+  width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--border-strong); transition: var(--transition-ui);
+}
+.shots-dots .dot.on { background: var(--accent); }
+.shots-dots .dot:hover { background: var(--text-muted); }
+.shots-play {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; padding: 0; margin-right: 6px;
+  border: 0; background: transparent; cursor: pointer;
+  font-size: 9px; line-height: 1; color: var(--text-muted); transition: var(--transition-ui);
+}
+.shots-play:hover { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .shot-img { transition: none; } }
 
-@media (prefers-reduced-motion: no-preference) {
-  .spec-line { stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: draw 2.2s var(--ease-standard) 0.2s forwards; }
-  .spec-area { opacity: 0; animation: fadein 1.2s ease 1.6s forwards; }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
-  @keyframes fadein { to { opacity: 1; } }
-}
-
-/* ── Stat band ──────────────────────────────────────────── */
-.stats { background: var(--gray-900); color: #fff; border-bottom: 1px solid var(--ink-line); }
-.stats-in { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--ink-line); }
-.stat { background: var(--gray-900); padding: 30px 24px; }
-.stat .v { font-family: var(--font-mono); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: var(--weight-semibold); color: #fff; letter-spacing: -0.02em; }
-.stat .v .u { color: var(--blue-300); }
-.stat .k { margin-top: 6px; font-size: var(--text-sm); color: #8b97a3; line-height: var(--leading-snug); }
+/* ── Stat band (light) ──────────────────────────────────── */
+.stats { background: var(--gray-25); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+.stats-in { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-default); }
+.stat { background: var(--gray-25); padding: 30px 24px; }
+.stat .v { font-family: var(--font-mono); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: var(--weight-semibold); color: var(--text-heading); letter-spacing: -0.02em; }
+.stat .v .u { color: var(--accent); }
+.stat .k { margin-top: 6px; font-size: var(--text-sm); color: var(--text-muted); line-height: var(--leading-snug); }
 
 /* ── Generic section ────────────────────────────────────── */
 .sec { padding: 88px 0; }
@@ -623,24 +640,24 @@ const families = [
 .lang.soon { color: var(--text-faint); border-style: dashed; }
 
 /* ── CTA ────────────────────────────────────────────────── */
-.cta { background-color: var(--ink); background-image: radial-gradient(rgba(86,117,240,0.12) 1px, transparent 1px); background-size: 22px 22px; color: #fff; text-align: center; overflow: hidden; }
-.cta::before { content: ""; position: absolute; inset: 0; background: radial-gradient(100% 80% at 50% 0%, rgba(49,87,233,0.32), transparent 65%); pointer-events: none; }
+.cta { background: linear-gradient(180deg, var(--blue-50) 0%, var(--gray-25) 100%); color: var(--text-body); text-align: center; overflow: hidden; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+.cta::before { content: ""; position: absolute; inset: 0; background: radial-gradient(100% 80% at 50% -10%, rgba(49,87,233,0.10), transparent 65%); pointer-events: none; }
 .cta-in { position: relative; padding: 92px 0; }
-.cta h2 { color: #fff; font-size: var(--text-h1); font-weight: var(--weight-semibold); }
-.cta p { margin: 18px auto 0; max-width: 52ch; font-size: var(--text-lead); color: #c2cbd6; line-height: 1.5; }
+.cta h2 { color: var(--text-heading); font-size: var(--text-h1); font-weight: var(--weight-semibold); }
+.cta p { margin: 18px auto 0; max-width: 52ch; font-size: var(--text-lead); color: var(--text-secondary); line-height: 1.5; }
 .cta-btns { margin-top: 34px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 /* ── Footer ─────────────────────────────────────────────── */
-.ftr { background: var(--gray-900); color: #8b97a3; padding: 52px 0 40px; }
+.ftr { background: var(--gray-25); color: var(--text-muted); padding: 52px 0 40px; border-top: 1px solid var(--border-default); }
 .ftr-in { display: flex; gap: 40px; flex-wrap: wrap; justify-content: space-between; }
-.ftr .brand b { color: #fff; }
+.ftr .brand b { color: var(--text-heading); }
 .ftr .brand img { filter: none; }
 .ftr-tag { margin-top: 14px; max-width: 30ch; font-size: var(--text-sm); line-height: 1.5; }
 .ftr-cols { display: flex; gap: 56px; flex-wrap: wrap; }
-.ftr-col h4 { font-size: var(--text-sm); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: #c2cbd6; margin: 0 0 14px; }
-.ftr-col a { display: block; font-size: var(--text-md); color: #8b97a3; text-decoration: none; margin-bottom: 9px; transition: var(--transition-ui); }
-.ftr-col a:hover { color: #fff; }
-.ftr-base { border-top: 1px solid var(--ink-line); margin-top: 40px; padding-top: 22px; font-size: var(--text-sm); display: flex; gap: 16px; justify-content: space-between; flex-wrap: wrap; }
+.ftr-col h4 { font-size: var(--text-sm); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-secondary); margin: 0 0 14px; }
+.ftr-col a { display: block; font-size: var(--text-md); color: var(--text-muted); text-decoration: none; margin-bottom: 9px; transition: var(--transition-ui); }
+.ftr-col a:hover { color: var(--accent); }
+.ftr-base { border-top: 1px solid var(--border-default); margin-top: 40px; padding-top: 22px; font-size: var(--text-sm); display: flex; gap: 16px; justify-content: space-between; flex-wrap: wrap; }
 
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 920px) {
@@ -653,7 +670,22 @@ const families = [
   .bench-row { grid-template-columns: 150px 1fr 52px; gap: 12px; }
   .bench-x { font-size: var(--text-md); }
   .eco-grid { grid-template-columns: 1fr; }
-  .hdr-nav { display: none; }
+  /* mobile: collapse the nav into a hamburger dropdown */
+  .hdr-burger { display: inline-flex; }
+  .hdr-nav {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0; margin: 0;
+    padding: 6px 24px 14px;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-default); box-shadow: var(--shadow-2);
+  }
+  .hdr-nav.open { display: flex; }
+  .hdr-nav a { padding: 12px 2px; font-size: var(--text-section); }
+  .hdr-nav a + a { border-top: 1px solid var(--border-soft); }
+}
+@media (max-width: 600px) {
+  .hdr-in { gap: 12px; }
+  .btn-lg { font-size: var(--text-md); padding: 11px 18px; }
 }
 @media (max-width: 520px) {
   .stats-in { grid-template-columns: 1fr; }

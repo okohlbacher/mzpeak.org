@@ -13,6 +13,10 @@ export default defineConfig({
   cleanUrls: true,
   lang: 'en-US',
 
+  // /spec/ is the MkDocs spec, composed onto the same origin at deploy time —
+  // it is not a VitePress route, so exclude it from the dead-link check.
+  ignoreDeadLinks: [/^\/spec(\/|$)/],
+
   // The design system is light-only (a dark "data stage" appears only inside
   // the landing hero/CTA); disable the default theme's dark-mode toggle.
   appearance: false,
@@ -29,20 +33,22 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    // The official mzPeak wordmark (peak mark + "mzPeak"); hide the duplicate title text.
-    logo: '/logo.png',
-    siteTitle: false,
+    // Match the landing header's brand lockup: the square peaks mark + a "mzPeak"
+    // site title. Keeping siteTitle (rather than a hidden wordmark) also gives the
+    // home link an accessible name for assistive tech.
+    logo: { src: '/mark.png', alt: 'mzPeak' },
+    siteTitle: 'mzPeak',
     nav: [
-      { text: 'About', link: '/about' },
+      { text: 'Governance', link: '/about' },
       { text: 'Tools', link: '/tools' },
-      { text: 'Examples', link: '/examples' },
+      { text: 'Try it', link: '/examples' },
       { text: 'Supporters', link: '/supporters' },
       { text: 'Contact', link: '/contact' },
-      { text: 'Specification ↗', link: 'https://hupo-psi.github.io/mzPeak-specification/' },
+      { text: 'Specification', link: '/spec/', target: '_self' },
     ],
     sidebar: false,
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/HUPO-PSI/mzPeak' },
+      { icon: 'github', link: 'https://github.com/HUPO-PSI' },
     ],
     search: { provider: 'local' },
     footer: {

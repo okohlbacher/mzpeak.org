@@ -1,56 +1,38 @@
-<script setup>
-import { withBase } from 'vitepress'
-</script>
+# Governance &amp; standardization
 
-# What is mzPeak?
+mzPeak is developed as an open community standard under **HUPO-PSI** (the Proteomics Standards
+Initiative) — the same body that stewards mzML and the PSI-MS controlled vocabulary.
 
-**mzPeak** is a next-generation open file format for mass spectrometry data — designed as the
-successor to [mzML](https://www.psidev.info/mzML). It keeps everything mzML can describe, but stores it
-in a layout built for today's data volumes and cloud workflows.
+## Status
 
-## The idea in one line
+mzPeak is at **version 0.9 (working draft)**. It has **not yet been ratified** through the formal
+HUPO-PSI document process: the container, signal-data layouts, index file, and metadata model are
+specified and implemented, while a few normative questions remain open and are tracked in the
+specification.
 
-> An mzPeak file is a **ZIP archive of [Apache Parquet](https://parquet.apache.org/) tables plus a small
-> JSON index** — columnar, compressed, randomly addressable, and self-describing.
+- Read the current draft — [Specification](/spec/)
+- Follow or comment on the open questions — [HUPO-PSI/mzPeak-specification](https://github.com/HUPO-PSI/mzPeak-specification)
 
-![An mzPeak archive: Parquet data columns, metadata, and an index, inside one ZIP container.](/illustrations/format-diagram.svg)
+## How it's governed
 
-## Why a new format?
+The format is defined by a public specification and anchored in the **PSI-MS controlled vocabulary**, so
+its semantics are the vocabulary the community already uses. Decisions are made in the open through the
+HUPO-PSI working groups and a technical committee, with discussion on the public mailing list and GitHub.
 
-- **Size.** Spectra are columnar and compressed, so a file is typically a fraction of the equivalent
-  mzML — without losing a single data point.
-- **Speed & cloud-native access.** Parquet's column + row-group layout means a reader can fetch *just the
-  bytes it needs* over an HTTP range request. Open one spectrum from a multi-gigabyte run in a browser,
-  with no download.
-- **Interoperable by design.** The structure is language-independent (ZIP + Parquet are everywhere), and
-  the semantics are anchored in the **PSI-MS controlled vocabulary** — the same vocabulary the community
-  already uses. A versioned validator checks conformance.
-- **Extensible without forking.** New kinds of data attach through documented *entity-type* and
-  *data-kind* mechanisms, so the format grows by extension rather than by incompatible variants.
+## Why you can build on it
 
-## Smaller, on real data
+- **Open &amp; language-independent.** ZIP + Apache Parquet are ubiquitous; the on-disk structure is
+  documented and not tied to a single core library.
+- **Independently implemented.** Seven from-scratch implementations — the Rust reference plus Python, R,
+  C#, Java, JavaScript/TypeScript and C++ — read and write the same archives. See [Build with mzPeak](/tools).
+- **Verifiable.** A versioned, profile-driven conformance validator checks that files meet the spec.
+- **Stewarded by a standards body.** Governance sits with HUPO-PSI, not a vendor.
 
-Across three families of public datasets, mzPeak is consistently about half the size of the original
-vendor raw file — and a fraction of the equivalent mzML. [Browse the example data ↗](https://object.storage.eu01.onstackit.cloud/v09/index.html),
-or see the [per-instrument numbers](/#performance) on the home page.
+## Get involved
 
-<div class="ratio-figs">
-  <a href="https://object.storage.eu01.onstackit.cloud/v09/mass-spec.html" target="_blank" rel="noopener"><img :src="withBase('/figures/mass-spec-ratios.png')" alt="General MS data: mzPeak about 50% of the vendor raw size" /></a>
-  <a href="https://object.storage.eu01.onstackit.cloud/v09/imaging.html" target="_blank" rel="noopener"><img :src="withBase('/figures/imaging-ratios.png')" alt="Imaging MS (MSI): mzPeak about 35% of the vendor raw size" /></a>
-  <a href="https://object.storage.eu01.onstackit.cloud/v09/sdrf.html" target="_blank" rel="noopener"><img :src="withBase('/figures/sdrf-ratios.png')" alt="Study-design embedding: mzPeak about 45% of the vendor raw size" /></a>
-</div>
+mzPeak is a community effort and contributions are welcome — implementations, converters, test data, and
+review of the open questions.
 
-## What's inside an archive
-
-| Member | What it holds |
-|---|---|
-| `*_data.parquet` | the signal: m/z + intensity (and ion-mobility, etc.) as sorted columns |
-| `metadata` | instrument, software, samples, run description, controlled-vocabulary declarations |
-| `mzpeak_index.json` | the manifest — what members exist and how to find them |
-| `Other` members | optional embedded artifacts: optical images, **SDRF/ISA sample metadata**, provenance |
-
-## Governance
-
-mzPeak is developed as an open community effort under **[HUPO-PSI](https://www.psidev.info/)** (the
-Proteomics Standards Initiative). The canonical specification and the reference implementation are public
-— see [Tools](/tools).
+- Specification &amp; issues — [HUPO-PSI/mzPeak-specification](https://github.com/HUPO-PSI/mzPeak-specification)
+- The wider project — [HUPO-PSI on GitHub](https://github.com/HUPO-PSI) · [psidev.info](https://www.psidev.info/)
+- Questions — [info@mzpeak.org](mailto:info@mzpeak.org) (see [Contact](/contact))
