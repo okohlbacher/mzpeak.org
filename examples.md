@@ -26,13 +26,13 @@ onto it — the file is read in place over HTTP range requests and never leaves 
 
 <div class="viewer-embed">
   <iframe
-    src="https://okohlbacher.github.io/mzPeakExplorer/"
+    src="https://www.mzpeak.org/view/"
     title="mzPeak Explorer — interactive in-browser mzPeak viewer"
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
-[Open a real dataset in a full window ↗](https://okohlbacher.github.io/mzPeakExplorer/?file=https%3A%2F%2Fdata.mzpeak.org%2Fv09%2FmzML-examples%2Fagilent-6490-triplequad%2FREC-2349_P2_F1.mzpeak)
+[Open a real dataset in a full window ↗](https://www.mzpeak.org/view/?file=https%3A%2F%2Fdata.mzpeak.org%2Fv09%2FmzML-examples%2Fagilent-6490-triplequad%2FREC-2349_P2_F1.mzpeak)
 
 ## Why it's compact
 

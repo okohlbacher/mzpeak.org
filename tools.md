@@ -47,7 +47,7 @@ languages, converters, a conformance validator, and in-browser viewers. Pick a s
     <strong class="build-title">mzPeak Explorer</strong>
     <p>Open any <code>.mzpeak</code> directly in your browser, streamed over HTTP — no upload, no backend.</p>
     <div class="build-links">
-      <a href="https://okohlbacher.github.io/mzPeakExplorer/" target="_blank" rel="noopener">Open viewer ↗</a>
+      <a href="https://www.mzpeak.org/view/" target="_blank" rel="noopener">Open viewer ↗</a>
       <a href="https://github.com/okohlbacher/mzPeakExplorer" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </div>
@@ -57,7 +57,7 @@ languages, converters, a conformance validator, and in-browser viewers. Pick a s
     <strong class="build-title">mzPeakIV</strong>
     <p>An imaging viewer for MS-imaging (MSI) datasets — render ion images, click pixels to inspect spectra.</p>
     <div class="build-links">
-      <a href="https://okohlbacher.github.io/mzPeakIV/" target="_blank" rel="noopener">Open viewer ↗</a>
+      <a href="https://www.mzpeak.org/IV/" target="_blank" rel="noopener">Open viewer ↗</a>
       <a href="https://github.com/okohlbacher/mzPeakIV" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </div>
