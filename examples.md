@@ -5,7 +5,7 @@ instruments, and modalities — is hosted for anyone to explore.
 
 ## Browse the corpus
 
-- **[Example data index ↗](https://object.storage.eu01.onstackit.cloud/v09/index.html)** — hundreds of
+- **[Example data index ↗](https://data.mzpeak.org/v09/index.html)** — hundreds of
   `.mzpeak` files alongside their originals, organized by type:
   - **Imaging MS (MSI)** — imzML datasets with per-pixel spatial coordinates + optical images
   - **Mass spectrometry** — LC-/GC-MS across six vendors and every major analyzer class
@@ -21,7 +21,7 @@ stream the file in place.
 ## Try it right here
 
 The viewer below is **mzPeak Explorer**, running entirely in your browser. Click **Open demo** to load a
-real run, or drop any `.mzpeak` file from the [corpus](https://object.storage.eu01.onstackit.cloud/v09/index.html)
+real run, or drop any `.mzpeak` file from the [corpus](https://data.mzpeak.org/v09/index.html)
 onto it — the file is read in place over HTTP range requests and never leaves your machine.
 
 <div class="viewer-embed">
@@ -32,7 +32,7 @@ onto it — the file is read in place over HTTP range requests and never leaves 
     referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
-[Open a real dataset in a full window ↗](https://okohlbacher.github.io/mzPeakExplorer/?file=https%3A%2F%2Fobject.storage.eu01.onstackit.cloud%2Fv09%2FmzML-examples%2Fagilent-6490-triplequad%2FREC-2349_P2_F1.mzpeak)
+[Open a real dataset in a full window ↗](https://okohlbacher.github.io/mzPeakExplorer/?file=https%3A%2F%2Fdata.mzpeak.org%2Fv09%2FmzML-examples%2Fagilent-6490-triplequad%2FREC-2349_P2_F1.mzpeak)
 
 ## Why it's compact
 

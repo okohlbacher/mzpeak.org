@@ -15,14 +15,14 @@ const mark = withBase('/mark.png')
 // HUPO-PSI spec repo at deploy time). Point every "Specification" affordance there.
 const SPEC = withBase('/spec/')
 const WHITEPAPER = 'https://pubs.acs.org/doi/full/10.1021/acs.jproteome.5c00435'
-const EXAMPLES = 'https://object.storage.eu01.onstackit.cloud/v09/index.html'
+const EXAMPLES = 'https://data.mzpeak.org/v09/index.html'
 
 // The three real, public dataset families in the mzML2mzPeak example corpus,
 // each with its "size through the conversion chain" overview figure.
 const families = [
   {
     img: '/figures/mass-spec-ratios.png',
-    href: 'https://object.storage.eu01.onstackit.cloud/v09/mass-spec.html',
+    href: 'https://data.mzpeak.org/v09/mass-spec.html',
     name: 'General MS data',
     w: 941, h: 751,
     alt: 'Compression overview for general MS data: raw 100%, mzML ~181%, mzPeak ~50%.',
@@ -30,7 +30,7 @@ const families = [
   },
   {
     img: '/figures/imaging-ratios.png',
-    href: 'https://object.storage.eu01.onstackit.cloud/v09/imaging.html',
+    href: 'https://data.mzpeak.org/v09/imaging.html',
     name: 'Imaging MS (MSI)',
     w: 772, h: 751,
     alt: 'Compression overview for imaging MS: raw 100%, mzPeak ~35%.',
@@ -38,7 +38,7 @@ const families = [
   },
   {
     img: '/figures/sdrf-ratios.png',
-    href: 'https://object.storage.eu01.onstackit.cloud/v09/sdrf.html',
+    href: 'https://data.mzpeak.org/v09/sdrf.html',
     name: 'Study-design embedding',
     w: 941, h: 751,
     alt: 'Compression overview for study-design datasets: raw 100%, mzML ~194%, mzPeak ~45%.',
