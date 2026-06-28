@@ -5,7 +5,7 @@ import {
   BookOpen, Github, Menu, X, FileText, Play,
   Minimize2, Cloud, Gauge, BrainCircuit, Unlock, Puzzle, ShieldCheck, ArrowLeftRight,
   Package, Table2, Tags, FileJson2, Layers,
-  BookMarked, Binary, Repeat, ShieldCheck as ShieldCheck2, Activity, Grid2x2,
+  BookMarked, Binary, Repeat, ShieldCheck as ShieldCheck2, Activity,
   ArrowUpRight, ExternalLink,
 } from 'lucide-vue-next'
 
@@ -55,9 +55,9 @@ const slides = [
   { src: '/figures/mass-spec-ratios.png', caption: 'Smaller than mzML, losslessly',
     alt: 'Compression overview for general MS data: vendor raw at 100%, mzML inflating past it, and mzPeak at roughly half the raw size.' },
   { src: '/hero/explorer.png', caption: 'Open any file in your browser',
-    alt: 'The mzPeak Explorer viewer showing a loaded run — summary, spectra and chromatograms — streamed in the browser.' },
+    alt: 'The mzPeak Viewer showing a loaded run — summary, spectra and chromatograms — streamed in the browser.' },
   { src: '/hero/mzpeakiv.png', caption: 'MS-imaging in the browser',
-    alt: 'The mzPeakIV imaging viewer showing an ion image reconstructed from a mouse urinary-bladder MS-imaging dataset.' },
+    alt: 'The mzPeak Viewer showing an ion image reconstructed from a mouse urinary-bladder MS-imaging dataset.' },
 ]
 const menuOpen = ref(false)
 const current = ref(0)
@@ -115,7 +115,7 @@ onUnmounted(stop)
   <section class="hero" id="top">
     <div class="wrap-wide hero-in">
       <div>
-        <span class="eyebrow hero-eyebrow"><span class="dot"></span> Open standard · HUPO-PSI</span>
+        <span class="eyebrow hero-eyebrow"><span class="dot"></span> Open standard (under development) · HUPO-PSI</span>
         <h1>The modern<br />mass&nbsp;spectrometry<br /><span class="acc">data format</span></h1>
         <p class="hero-lead">Compact, fast, and cloud-native — a Parquet-in-ZIP successor to mzML. Losslessly smaller, and randomly addressable straight over HTTP.</p>
         <div class="hero-cta">
@@ -168,7 +168,7 @@ onUnmounted(stop)
         <div class="feat">
           <span class="feat-ico"><Minimize2 /></span>
           <h3>Compact</h3>
-          <p>Columnar Parquet compression makes a file typically a fraction of the equivalent mzML — without losing a single data point.</p>
+          <p>Columnar Parquet compression makes a file typically a fraction of the equivalent mzML and between 30–100% of vendor formats — lossless.</p>
           <span class="tag">0.18–0.57× · lossless</span>
         </div>
         <div class="feat">
@@ -330,13 +330,9 @@ onUnmounted(stop)
           <div class="eco-h"><ShieldCheck2 /><span class="nm">Validator</span><ArrowUpRight class="arrow" /></div>
           <p>A language-independent, profile-driven conformance validator. <span class="mono">mzpeak-validate file.mzpeak</span></p>
         </a>
-        <a class="eco" href="https://github.com/okohlbacher/mzPeakExplorer" id="examples">
-          <div class="eco-h"><Activity /><span class="nm">mzPeak Explorer</span><ArrowUpRight class="arrow" /></div>
-          <p>Open any <span class="mono">.mzpeak</span> directly in your browser, streamed over HTTP — no upload, no backend.</p>
-        </a>
-        <a class="eco" href="https://github.com/okohlbacher/mzPeakIV">
-          <div class="eco-h"><Grid2x2 /><span class="nm">mzPeakIV</span><ArrowUpRight class="arrow" /></div>
-          <p>An imaging viewer for MS-imaging (MSI) datasets — render ion images, click pixels to inspect spectra.</p>
+        <a class="eco" href="https://github.com/okohlbacher/mzpeakviewer" id="examples">
+          <div class="eco-h"><Activity /><span class="nm">mzPeak Viewer</span><ArrowUpRight class="arrow" /></div>
+          <p>Open any <span class="mono">.mzpeak</span> directly in your browser, streamed over HTTP — no upload, no backend. Spectra and chromatograms for LC-/GC-MS, ion images for MS-imaging (MSI).</p>
         </a>
       </div>
     </div>
@@ -378,7 +374,7 @@ onUnmounted(stop)
             <a href="https://github.com/mobiusklein/mzpeak_prototyping">Reference impl</a>
             <a href="https://github.com/okohlbacher/mzML2mzPeak">Converter</a>
             <a href="https://github.com/okohlbacher/mzPeakValidator">Validator</a>
-            <a href="https://github.com/okohlbacher/mzPeakExplorer">Explorer</a>
+            <a href="https://github.com/okohlbacher/mzpeakviewer">Viewer</a>
           </div>
           <div class="ftr-col">
             <h4>Community</h4>

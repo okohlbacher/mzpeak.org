@@ -13,3 +13,7 @@ node_modules/
 # Remove this line and `git add -f` if you want to publish the full design package.
 design_handoff_mzpeak_site/
 .claude/launch.json
+
+# generated corpus site staging
+corpus/out/
+__pycache__/

@@ -15,19 +15,19 @@ Every `.mzpeak` opens **directly in a browser viewer over HTTP range requests �
 
 ## Open one in a viewer
 
-From the index, click **▶ Explorer** on any file (or **▦ mzPeakIV** for imaging datasets). Both viewers
-stream the file in place.
+From the index, click **▶ View** on any file — the **mzPeak Viewer** streams it in place, whether it's a
+regular LC-/GC-MS run or an imaging (MSI) dataset.
 
 ## Try it right here
 
-The viewer below is **mzPeak Explorer**, running entirely in your browser. Click **Open demo** to load a
+The viewer below is the **mzPeak Viewer**, running entirely in your browser. Click **Open demo** to load a
 real run, or drop any `.mzpeak` file from the [corpus](https://data.mzpeak.org/v09/index.html)
 onto it — the file is read in place over HTTP range requests and never leaves your machine.
 
 <div class="viewer-embed">
   <iframe
     src="https://www.mzpeak.org/view/"
-    title="mzPeak Explorer — interactive in-browser mzPeak viewer"
+    title="mzPeak Viewer — interactive in-browser mzPeak viewer"
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
@@ -43,5 +43,5 @@ Across the benchmark corpus, mzPeak files are consistently a **fraction of the s
 ## A worked imaging example
 
 The mouse urinary-bladder MS-imaging dataset reconstructs tissue anatomy *label-free* from lipid ion
-images. Loaded in **mzPeakIV** and assigned to RGB channels, three masses separate the bladder-wall
+images. Loaded in the **mzPeak Viewer** and assigned to RGB channels, three masses separate the bladder-wall
 layers — urothelium, lamina propria, and muscle — straight from an mzPeak file in the browser.

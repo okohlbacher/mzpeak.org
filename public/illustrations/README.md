@@ -22,10 +22,10 @@ purple `#8250df`):
 4. **Ecosystem flow** — RAW / mzML → converter → `mzPeak` → {viewer, validator, analysis}. One row of
    labeled nodes.
 5. **Imaging extension** — an RGB MS-imaging overlay (e.g. the mouse urinary-bladder lipid image:
-   urothelium / lamina propria / muscle in three colors) rendered in mzPeakIV. From a public dataset.
+   urothelium / lamina propria / muscle in three colors) rendered in the mzPeak Viewer. From a public dataset.
 6. **Sample metadata** — SDRF/ISA table → embedded as an `Other` member inside the archive, with the
    sample↔run binding drawn as an arrow.
-7. **Screenshot** — mzPeak Explorer / mzPeakIV open on a real file (for the Examples page).
+7. **Screenshot** — the mzPeak Viewer open on a real file (for the Examples page).
 
 Format: SVG preferred for diagrams (crisp, tiny); PNG/screenshots for viewer captures. Avoid reproducing
 any copyrighted figures — regenerate imaging visuals from the open datasets.
