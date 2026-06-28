@@ -40,7 +40,7 @@ languages, converters, a conformance validator, and an in-browser viewer. Pick a
     <strong class="build-title">mzPeakValidator</strong>
     <p>A language-independent, profile-driven conformance validator. Check a file in the browser — paste an HTTPS or <code>s3://</code> URL, or upload a <code>.mzpeak</code> (up to 1 GB) — or from the CLI: <code>mzpeak-validate file.mzpeak</code>.</p>
     <div class="build-links">
-      <a href="https://validator.mzpeak.org" target="_blank" rel="noopener">Open validator ↗</a>
+      <a href="https://www.mzpeak.org/validator/" target="_blank" rel="noopener">Open validator ↗</a>
       <a href="https://github.com/okohlbacher/mzPeakValidator" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </div>
