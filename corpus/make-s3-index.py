@@ -173,8 +173,15 @@ for k, s in objs:
         continue
     subsets[top][group].append((rel, k, s))
 
-# preserve SUBSETS order, then any extras alphabetically
-order = [p for p in SUBSETS if p in subsets] + sorted(p for p in subsets if p not in SUBSETS)
+# STRICT ALLOWLIST: a directory is rendered ONLY if it has a `_catalog.md` in the data tree
+# (i.e. it is in SUBSETS). Bucket prefixes without a catalog — raw-*, vendor-*, demo, or any new
+# upload — are deliberately NOT shown anywhere (no card, no subpage). To surface a directory as a
+# tile, add a `_catalog.md` to it. (Previously every bucket prefix got an auto-generated default
+# card, which leaked raw-/vendor-/staging dirs onto the index.)
+order = [p for p in SUBSETS if p in subsets]
+_unlisted_dirs = sorted(p for p in subsets if p not in SUBSETS)
+if _unlisted_dirs:
+    print(f"  (not rendered — no _catalog.md: {', '.join(_unlisted_dirs)})", file=sys.stderr)
 # `listed` = the FEATURED subsets (landing cards, nav pills, README, headline totals). `order` still
 # includes UNLISTED subsets so they each get a linkable <slug>.html subpage (just not surfaced).
 listed = [p for p in order if p not in UNLISTED]
@@ -292,8 +299,8 @@ header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);bac
 .subhero .sub-badge{font-size:12px;color:#fff;border-radius:999px;padding:3px 11px;font-weight:500;font-family:var(--font-mono)}
 .subhero p{color:#c2cbd6;max-width:78ch;margin:12px 0 0;font-size:14px;line-height:1.55}
 
-/* content */
-.grid{display:grid;gap:16px;margin:28px 0 32px}
+/* content — responsive card grid: wraps instead of cramming N cards into one fixed row */
+.grid{display:grid;gap:18px;margin:28px 0 32px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
 .card{position:relative;display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;overflow:hidden;transition:transform .12s,box-shadow .12s,border-color .12s;color:var(--body)}
 .card:hover{text-decoration:none;transform:translateY(-3px);box-shadow:0 10px 30px rgba(20,30,50,.10);border-color:var(--line-strong)}
 .card .stripe{position:absolute;left:0;top:0;bottom:0;width:4px}
@@ -466,7 +473,7 @@ for p in listed:
 # mzpeak.org live in the header brand / "↗ mzpeak.org" action and the footer).
 landing = (
     '<main class="wrap" id="browse" style="padding-top:28px">'
-    f'<section class="grid" style="grid-template-columns:repeat({len(cards)},minmax(0,1fr))">{"".join(cards)}</section>'
+    f'<section class="grid">{"".join(cards)}</section>'
     '<div class="legend">Each <code>.mzpeak</code> streams into the browser-based '
     f'<a class="viewer view" target="_blank" rel="noopener" href="{VIEW}">▶ View</a> = mzPeak Viewer '
     'over HTTP range (no download) — any file, LC-/GC-MS and imaging (MSI) alike.</div></main>')
