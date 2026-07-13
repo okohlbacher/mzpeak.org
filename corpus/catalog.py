@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Read/write the per-subset `_catalog.md` description files that live IN the data
-tree (default ~/Claude/mzPeak/data, override $MZPEAK_DATA).
+tree (default ~/Claude/mzpeak-example-data/data, override $MZPEAK_DATA).
 
 One `_catalog.md` per subset directory holds what used to be the hardcoded
 `SUBSETS` + `DATASETS` dicts in make-s3-index.py:
@@ -29,7 +29,7 @@ dicts through the .md files is byte-stable (the migrator asserts it). Stdlib onl
 import os, re
 from collections import OrderedDict
 
-DEFAULT_DATA = os.path.expanduser("~/Claude/mzPeak/data")
+DEFAULT_DATA = os.path.expanduser("~/Claude/mzpeak-example-data/data")
 
 
 def data_dir():

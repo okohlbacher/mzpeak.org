@@ -33,9 +33,9 @@ WHITEPAPER = "https://pubs.acs.org/doi/full/10.1021/acs.jproteome.5c00435"
 GITHUB = "https://github.com/okohlbacher/mzML2mzPeak"
 
 # Per-subset card metadata + per-dataset descriptions now live in `_catalog.md`
-# files inside the DATA TREE (default ~/Claude/mzPeak/data, override $MZPEAK_DATA),
+# files inside the DATA TREE (default ~/Claude/mzpeak-example-data/data, override $MZPEAK_DATA),
 # loaded here via corpus/catalog.py. Edit the descriptions THERE, next to the data.
-DATA_DIR = os.environ.get("MZPEAK_DATA", os.path.expanduser("~/Claude/mzPeak/data"))
+DATA_DIR = os.environ.get("MZPEAK_DATA", os.path.expanduser("~/Claude/mzpeak-example-data/data"))
 SUBSETS, DATASETS = load_catalogs(DATA_DIR)
 DEFAULT_META = dict(slug=None, title=None, icon="\U0001F4E6", accent="#57606a", blurb="", prov="", imaging=False)
 
@@ -46,7 +46,7 @@ HIDE_PREFIXES = {"demo"}                    # legacy duplicate — fully dropped
 # curated showcase, so it's unlisted-but-downloadable rather than featured.
 UNLISTED = {"pwiz-examples"}
 # Loose test artifacts / per-dir READMEs that surfaced as fake one-file "datasets" — not examples.
-SKIP_GROUP_NAMES = {"README.md", "small.mzpeak", "small.chunked.mzpeak", "small.numpress.mzpeak", "has_uv.mzpeak"}
+SKIP_GROUP_NAMES = {"README.md", "_catalog.md", "small.mzpeak", "small.chunked.mzpeak", "small.numpress.mzpeak", "has_uv.mzpeak"}
 SELF_SUFFIX = (".html", ".png", ".tsv", ".sh")   # generated site assets at bucket root (index/subpages, ratio plots, ratios.tsv, download helpers like pwiz-tests-download.sh) — not example data, never listed
 SELF_NAMES = {"README.md"}
 
@@ -126,16 +126,21 @@ def input_size(files, imaging):
 
 
 def head_sizes(files, imaging):
-    """Accordion-header string: 'raw R, mzML M, mzPeak P (P/R%/P/M%)' with n.a. fallbacks."""
+    """Accordion-header size string. Only tiers that ACTUALLY exist are listed — an absent tier is
+    omitted, not shown as 'n.a.' (e.g. a raw-only dataset reads just 'raw 533.3 MB'). The ratio
+    parenthetical shows only the computable ratios (mzPeak/raw, mzPeak/mzML)."""
     raw, mzml, mzp = size_tiers(files, imaging)
-    if raw == 0 and mzml == 0 and mzp == 0:
+    parts = []
+    if raw > 0:  parts.append(f"raw {hs(raw)}")
+    if mzml > 0: parts.append(f"mzML {hs(mzml)}")
+    if mzp > 0:  parts.append(f"mzPeak {hs(mzp)}")
+    if not parts:
         return ""                      # metadata-only dataset (e.g. SDRF/ISA tsv) — no size line
-    raw_s = f"raw {hs(raw)}" if raw > 0 else "Raw n.a."
-    mzml_s = f"mzML {hs(mzml)}" if mzml > 0 else "mzML n.a."
-    mzp_s = f"mzPeak {hs(mzp)}" if mzp > 0 else "mzPeak n.a."
-    pr = f"{round(100 * mzp / raw)}%" if raw > 0 and mzp > 0 else "n.a."
-    pm = f"{round(100 * mzp / mzml)}%" if mzml > 0 and mzp > 0 else "n.a."
-    return f"{raw_s}, {mzml_s}, {mzp_s} ({pr}/{pm})"
+    ratios = []
+    if raw > 0 and mzp > 0:  ratios.append(f"{round(100 * mzp / raw)}%")
+    if mzml > 0 and mzp > 0: ratios.append(f"{round(100 * mzp / mzml)}%")
+    tail = f" ({'/'.join(ratios)})" if ratios else ""
+    return ", ".join(parts) + tail
 
 
 def viewer_links(key, imaging):

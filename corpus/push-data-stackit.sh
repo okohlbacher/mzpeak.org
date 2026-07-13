@@ -10,7 +10,7 @@
 #   MZML2MZPEAK=~/Claude/mzML2mzPeak     converter repo holding the check-*.py validators
 set -uo pipefail
 cd "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"   # the corpus/ dir
-DATA_ROOT="${MZPEAK_DATA:-$HOME/Claude/mzPeak/data}"
+DATA_ROOT="${MZPEAK_DATA:-$HOME/Claude/mzpeak-example-data/data}"
 CONV="${MZML2MZPEAK:-$HOME/Claude/mzML2mzPeak}"
 # Target object store (defaults = StackIT s3://v09). Override via env to mirror elsewhere, e.g.
 # de.NBI Tübingen:  ENDPOINT=https://s3.denbi.uni-tuebingen.de AWS_PROFILE=denbi BUCKET=mzpeak bash corpus/push-data-stackit.sh

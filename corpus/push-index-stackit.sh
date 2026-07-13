@@ -34,6 +34,9 @@ say(){ echo "[$(date +%H:%M:%S)] $*"; }
 
 command -v aws >/dev/null || { echo "ERROR: aws CLI not found (brew install awscli)" >&2; exit 1; }
 mkdir -p out "$OUT"
+# Clean the staging dir so a renamed/removed subset can't leave a stale subpage that gets re-uploaded
+# (e.g. an old 'mass-spec.html' lingering after the slug became 'general-ms').
+rm -f "$OUT"/*.html "$OUT"/*.png "$OUT"/*.sh "$OUT"/README.md "$OUT"/ratios.tsv 2>/dev/null || true
 
 # 1) list the live bucket  ->  2) generate the multi-page site (reads _catalog.md from $MZPEAK_DATA)
 say "listing s3://$B"
@@ -41,6 +44,17 @@ say "listing s3://$B"
   || { echo "ERROR: could not list bucket (check the '$PROFILE' profile / endpoint)" >&2; exit 1; }
 say "generating site -> $OUT"
 python3 make-s3-index.py "$OUT" < out/v09-listing.json
+
+# SAFETY GUARD: never publish a tile-less index. If MZPEAK_DATA points at a tree with no _catalog.md
+# (e.g. the data was relocated), the generator emits index.html + 0 subpages — uploading that would
+# WIPE the live corpus site. Refuse unless at least one subpage was produced.
+nsub=$(find "$OUT" -maxdepth 1 -name '*.html' ! -name 'index.html' | wc -l | tr -d ' ')
+if [ "$nsub" -lt 1 ]; then
+  echo "ERROR: generated index has 0 subpages — no _catalog.md found under MZPEAK_DATA=${MZPEAK_DATA:-<default ~/Claude/mzPeak/data>}." >&2
+  echo "       Refusing to upload an empty index. Point MZPEAK_DATA at the data tree that holds the" >&2
+  echo "       per-subset _catalog.md files (currently ~/Claude/mzpeak-example-data/data)." >&2
+  exit 1
+fi
 # 2b) render per-category compression box-scatter PNGs from the emitted ratios.tsv (needs matplotlib;
 #     non-fatal if absent — the pages just won't have an <img> to show).
 say "rendering per-category ratio plots -> $OUT/*.png"
