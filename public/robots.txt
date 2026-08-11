@@ -1,0 +1,9 @@
+# mzPeak — https://www.mzpeak.org
+# Marketing + spec are indexable; the app shells at /view/ and /validator/ are
+# client-rendered tools with no crawlable content, so keep them out of the index.
+User-agent: *
+Allow: /
+Disallow: /view/
+Disallow: /validator/
+
+Sitemap: https://www.mzpeak.org/sitemap.xml

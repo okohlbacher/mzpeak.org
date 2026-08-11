@@ -25,11 +25,23 @@ export default defineConfig({
   // The design_handoff_* tree is a design reference, not site content.
   srcExclude: ['README.md', '**/illustrations/README.md', 'design_handoff_*/**'],
 
+  // Canonical production origin — used for absolute OG/Twitter image URLs and the
+  // sitemap. Social scrapers (Slack/Twitter/LinkedIn) require an ABSOLUTE og:image,
+  // so it is hardcoded to the live host rather than the (relative) base path.
+  sitemap: { hostname: 'https://www.mzpeak.org' },
+
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: `${base}mark.png` }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'mzPeak' }],
+    ['meta', { property: 'og:url', content: 'https://www.mzpeak.org/' }],
     ['meta', { property: 'og:title', content: 'mzPeak — the modern mass spectrometry data format' }],
     ['meta', { property: 'og:description', content: 'Compact, fast, cloud-native. A Parquet-in-ZIP successor to mzML, open and CV-governed by HUPO-PSI.' }],
-    ['meta', { property: 'og:image', content: `${base}logo.png` }],
+    ['meta', { property: 'og:image', content: 'https://www.mzpeak.org/logo.png' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'mzPeak — the modern mass spectrometry data format' }],
+    ['meta', { name: 'twitter:description', content: 'Compact, fast, cloud-native. A Parquet-in-ZIP successor to mzML, open and CV-governed by HUPO-PSI.' }],
+    ['meta', { name: 'twitter:image', content: 'https://www.mzpeak.org/logo.png' }],
   ],
 
   themeConfig: {
@@ -39,12 +51,20 @@ export default defineConfig({
     logo: { src: '/mark.png', alt: 'mzPeak' },
     siteTitle: 'mzPeak',
     nav: [
-      { text: 'Governance', link: '/about' },
+      { text: 'Why mzPeak', link: '/why' },
+      { text: 'Specification', link: '/spec/', target: '_self' },
       { text: 'Tools', link: '/tools' },
       { text: 'Try it', link: '/examples' },
-      { text: 'Supporters', link: '/supporters' },
-      { text: 'Contact', link: '/contact' },
-      { text: 'Specification', link: '/spec/', target: '_self' },
+      { text: 'FAQ', link: '/faq' },
+      { text: 'Roadmap', link: '/roadmap' },
+      {
+        text: 'Project',
+        items: [
+          { text: 'Governance', link: '/about' },
+          { text: 'Supporters', link: '/supporters' },
+          { text: 'Contact', link: '/contact' },
+        ],
+      },
     ],
     sidebar: false,
     socialLinks: [

@@ -5,10 +5,10 @@ instruments, and modalities — is hosted for anyone to explore.
 
 ## Browse the corpus
 
-- **[Example data index ↗](https://data.mzpeak.org/v09/index.html)** — hundreds of
-  `.mzpeak` files alongside their originals, organized by type:
+- **[Example data index ↗](https://data.mzpeak.org/v09/index.html)** — dozens of real
+  datasets, each `.mzpeak` alongside its original, organized by type:
   - **Imaging MS (MSI)** — imzML datasets with per-pixel spatial coordinates + optical images
-  - **Mass spectrometry** — LC-/GC-MS across six vendors and every major analyzer class
+  - **Mass spectrometry** — LC-/GC-MS across seven instrument classes from six vendors
   - **SDRF / ISA sample metadata** — studies shipping their sample-annotation alongside the data
 
 Every `.mzpeak` opens **directly in a browser viewer over HTTP range requests — no download**.
@@ -32,12 +32,12 @@ onto it — the file is read in place over HTTP range requests and never leaves 
     referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
-[Open a real dataset in a full window ↗](https://www.mzpeak.org/view/?file=https%3A%2F%2Fdata.mzpeak.org%2Fv09%2FmzML-examples%2Fagilent-6490-triplequad%2FREC-2349_P2_F1.mzpeak)
+[Open the viewer in a full window ↗](https://www.mzpeak.org/view/) — then pick any demo, or open a file from the [corpus](https://data.mzpeak.org/v09/index.html).
 
 ## Why it's compact
 
 Across the benchmark corpus, mzPeak files are consistently a **fraction of the source mzML size**
-(roughly 0.1–0.6×), losslessly — the payoff of columnar Parquet storage. See the
+(roughly **0.18–0.57×, average ~0.37×**), losslessly — the payoff of columnar Parquet storage. See the
 [per-instrument numbers](/#performance) on the home page.
 
 ## A worked imaging example

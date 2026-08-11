@@ -52,8 +52,8 @@ const slides = [
     alt: 'The mzPeak abstract figure: a shipping container labelled “mzPeak / Parquet” holding spectra and metadata.' },
   { src: '/hero/anatomy.png', caption: 'Anatomy of an mzPeak archive',
     alt: 'Diagram of an mzPeak archive: a JSON index plus Parquet tables for spectrum and chromatogram data and metadata, inside one container.' },
-  { src: '/figures/mass-spec-ratios.png', caption: 'Smaller than mzML, losslessly',
-    alt: 'Compression overview for general MS data: vendor raw at 100%, mzML inflating past it, and mzPeak at roughly half the raw size.' },
+  { src: '/figures/corpus-ratios.png', caption: 'Smaller than mzML, losslessly',
+    alt: 'Whole-corpus size comparison across 48 datasets: vendor raw at 100%, mzML averaging 132% (routinely larger than raw), and mzPeak at 45% (median 41%).' },
   { src: '/hero/explorer.png', caption: 'Open any file in your browser',
     alt: 'The mzPeak Viewer showing a loaded run — summary, spectra and chromatograms — streamed in the browser.' },
   { src: '/hero/mzpeakiv.png', caption: 'MS-imaging in the browser',
@@ -91,12 +91,13 @@ onUnmounted(stop)
         <b>mzPeak</b>
       </a>
       <nav class="hdr-nav" :class="{ open: menuOpen }" @click="menuOpen = false">
-        <a :href="withBase('/about')">Governance</a>
+        <a :href="withBase('/why')">Why mzPeak</a>
+        <a :href="SPEC" target="_self">Specification</a>
         <a :href="withBase('/tools')">Tools</a>
         <a :href="withBase('/examples')">Try it</a>
-        <a :href="withBase('/supporters')">Supporters</a>
-        <a :href="withBase('/contact')">Contact</a>
-        <a :href="SPEC" target="_self">Specification</a>
+        <a :href="withBase('/faq')">FAQ</a>
+        <a :href="withBase('/roadmap')">Roadmap</a>
+        <a :href="withBase('/about')">Governance</a>
       </nav>
       <div class="hdr-actions">
         <a class="hdr-gh" href="https://github.com/HUPO-PSI" aria-label="mzPeak on GitHub"><Github /></a>
@@ -115,12 +116,12 @@ onUnmounted(stop)
   <section class="hero" id="top">
     <div class="wrap-wide hero-in">
       <div>
-        <span class="eyebrow hero-eyebrow"><span class="dot"></span> Open standard (under development) · HUPO-PSI</span>
+        <a class="eyebrow hero-eyebrow" :href="withBase('/roadmap')" style="text-decoration:none" title="See the status &amp; roadmap"><span class="dot"></span> Open standard (under development) · HUPO-PSI</a>
         <h1>The modern<br />mass&nbsp;spectrometry<br /><span class="acc">data format</span></h1>
         <p class="hero-lead">Compact, fast, and cloud-native — a Parquet-in-ZIP successor to mzML. Losslessly smaller, and randomly addressable straight over HTTP.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary btn-lg" :href="WHITEPAPER"><FileText />Read the white paper</a>
-          <a class="btn btn-secondary btn-lg" :href="withBase('/examples')"><Play />Browse live examples</a>
+          <a class="btn btn-primary btn-lg" :href="withBase('/examples')"><Play />Open a file in your browser</a>
+          <a class="btn btn-secondary btn-lg" :href="WHITEPAPER"><FileText />Read the white paper</a>
         </div>
         <div class="hero-trust">
           <span>Governed by <b>HUPO-PSI</b></span>
@@ -140,7 +141,7 @@ onUnmounted(stop)
           <button class="shots-arrow next" type="button" @click="next" aria-label="Next figure">›</button>
         </div>
         <div class="shots-bar">
-          <span class="shots-cap mono">{{ slides[current].caption }}</span>
+          <span class="shots-cap">{{ slides[current].caption }}</span>
           <span class="shots-dots">
             <button class="shots-play" type="button" @click="togglePlay"
                     :aria-label="playing ? 'Pause figure slideshow' : 'Play figure slideshow'"
@@ -181,7 +182,7 @@ onUnmounted(stop)
           <span class="feat-ico"><Gauge /></span>
           <h3>Fast</h3>
           <p>Open a 3&nbsp;GB file and read any spectrum near-instantly — under 1s locally, under 2s from remote S3. Ion images and XICs extract in seconds, in the browser.</p>
-          <span class="tag">3 GB in &lt; 2s</span>
+          <span class="tag">1 spectrum from 3 GB · &lt; 2s</span>
         </div>
         <div class="feat">
           <span class="feat-ico"><BrainCircuit /></span>
@@ -363,10 +364,12 @@ onUnmounted(stop)
         </div>
         <div class="ftr-cols">
           <div class="ftr-col">
-            <h4>Format</h4>
-            <a href="#format">What's inside</a>
-            <a href="#performance">Performance</a>
+            <h4>Learn</h4>
+            <a :href="withBase('/why')">Why mzPeak</a>
             <a :href="SPEC" target="_self">Specification</a>
+            <a :href="withBase('/faq')">FAQ</a>
+            <a :href="withBase('/roadmap')">Roadmap</a>
+            <a :href="withBase('/why') + '#how-to-cite'">How to cite</a>
             <a :href="WHITEPAPER">White paper</a>
           </div>
           <div class="ftr-col">

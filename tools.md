@@ -1,7 +1,9 @@
 # Build with mzPeak
 
-Everything around mzPeak is open source — a specification, reference reader/writers across seven
-languages, converters, a conformance validator, and an in-browser viewer. Pick a starting point.
+Everything around mzPeak is open source — a specification, reference libraries in seven
+languages (read across all; Rust and C# also write), converters, a conformance validator, and an
+in-browser viewer. Pick a starting point — or see [Why mzPeak](/why) for the mzML comparison,
+a quickstart, and the full read/write support matrix.
 
 <div class="build-grid">
 
@@ -11,17 +13,17 @@ languages, converters, a conformance validator, and an in-browser viewer. Pick a
     <p>The canonical format — JSON Schemas, controlled-vocabulary rules, and prose.</p>
     <div class="build-links">
       <a href="/spec/">Read the spec →</a>
-      <a href="https://github.com/HUPO-PSI/mzPeak-specification" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/HUPO-PSI/mzPeak-specification" target="_blank" rel="noopener" aria-label="mzPeak specification on GitHub">GitHub ↗</a>
     </div>
   </div>
 
   <div class="build-card">
     <div class="build-head"><span class="build-badge b-impl">Reference impls</span><span class="build-stat">seven languages</span></div>
     <strong class="build-title">Reference implementations</strong>
-    <p>Read/write libraries across <strong>seven languages</strong> — Rust (reference, <code>mzpeak_prototyping</code>), Python, R, C#, JavaScript/TypeScript, C++, and Java — all built on Apache Arrow / Parquet.</p>
+    <p>Libraries across <strong>seven languages</strong> — Rust (reference, <code>mzpeak_prototyping</code>), Python, R, C#, JavaScript/TypeScript, C++, and Java — all on Apache Arrow / Parquet. <strong>All read; Rust and C# also write</strong> (Java write is a proof-of-concept).</p>
     <div class="build-links">
       <a href="/spec/implementations/">See all seven →</a>
-      <a href="https://github.com/HUPO-PSI" target="_blank" rel="noopener">HUPO-PSI ↗</a>
+      <a href="https://github.com/HUPO-PSI" target="_blank" rel="noopener" aria-label="HUPO-PSI on GitHub">HUPO-PSI ↗</a>
     </div>
   </div>
 
@@ -31,17 +33,17 @@ languages, converters, a conformance validator, and an in-browser viewer. Pick a
     <p>Open any <code>.mzpeak</code> directly in your browser, streamed over HTTP — no upload, no backend. Inspect spectra and chromatograms for LC-/GC-MS runs, or render ion images and click pixels for MS-imaging (MSI) datasets.</p>
     <div class="build-links">
       <a href="https://www.mzpeak.org/view/" target="_blank" rel="noopener">Open viewer ↗</a>
-      <a href="https://github.com/okohlbacher/mzpeakviewer" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/okohlbacher/mzpeakviewer" target="_blank" rel="noopener" aria-label="mzPeak Viewer on GitHub">GitHub ↗</a>
     </div>
   </div>
 
   <div class="build-card">
     <div class="build-head"><span class="build-badge b-val">Validator</span></div>
-    <strong class="build-title">mzPeakValidator</strong>
+    <strong class="build-title">mzPeak Validator</strong>
     <p>A language-independent, profile-driven conformance validator. Check a file in the browser — paste an HTTPS or <code>s3://</code> URL, or upload a <code>.mzpeak</code> (up to 1 GB) — or from the CLI: <code>mzpeak-validate file.mzpeak</code>.</p>
     <div class="build-links">
       <a href="https://www.mzpeak.org/validator/" target="_blank" rel="noopener">Open validator ↗</a>
-      <a href="https://github.com/okohlbacher/mzPeakValidator" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/okohlbacher/mzPeakValidator" target="_blank" rel="noopener" aria-label="mzPeak Validator on GitHub">GitHub ↗</a>
     </div>
   </div>
 
@@ -53,5 +55,5 @@ languages, converters, a conformance validator, and an in-browser viewer. Pick a
 See the viewer in action on the [Try it](/examples) page.
 
 > Building a tool that reads or writes mzPeak? The format is language-independent — start from the
-> [specification](/spec/) and validate against mzPeakValidator. Contributions and feedback are welcome
+> [specification](/spec/) and validate against the mzPeak Validator. Contributions and feedback are welcome
 > via the [HUPO-PSI repositories](https://github.com/HUPO-PSI).
