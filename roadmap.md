@@ -14,7 +14,7 @@ mzPeak is currently a **v0.9 draft (Draft 5)** — a working specification under
 | In-browser viewer (`/view/`) and conformance validator (`/validator/`) | Java library (currently proof-of-concept) |
 | Public corpus of ~79 datasets across six vendors | |
 
-Read support is broad and mature; **write support is currently limited to Rust and C#**. Python, R, JS/TS, and C++ libraries are read-only today, and the Java library is a proof-of-concept.
+Read support is broad and mature; **write support is currently limited to Rust and C#**, plus a Java read+write proof-of-concept. Python, R, JS/TS, and C++ libraries are read-only today.
 
 ## On the roadmap
 
