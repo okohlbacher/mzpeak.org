@@ -37,11 +37,11 @@ export default defineConfig({
     ['meta', { property: 'og:url', content: 'https://www.mzpeak.org/' }],
     ['meta', { property: 'og:title', content: 'mzPeak — the modern mass spectrometry data format' }],
     ['meta', { property: 'og:description', content: 'Compact, fast, cloud-native. A Parquet-in-ZIP successor to mzML, open and CV-governed by HUPO-PSI.' }],
-    ['meta', { property: 'og:image', content: 'https://www.mzpeak.org/logo.png' }],
+    ['meta', { property: 'og:image', content: 'https://www.mzpeak.org/og-card.png' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: 'mzPeak — the modern mass spectrometry data format' }],
     ['meta', { name: 'twitter:description', content: 'Compact, fast, cloud-native. A Parquet-in-ZIP successor to mzML, open and CV-governed by HUPO-PSI.' }],
-    ['meta', { name: 'twitter:image', content: 'https://www.mzpeak.org/logo.png' }],
+    ['meta', { name: 'twitter:image', content: 'https://www.mzpeak.org/og-card.png' }],
   ],
 
   themeConfig: {

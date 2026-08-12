@@ -301,6 +301,7 @@ onUnmounted(stop)
         </div>
         <div class="bench-foot">// mzPeak ÷ mzML file size · lower is better · public benchmark corpus, peak type preserved on conversion. Source: mzPeak white paper, J. Proteome Res. 2025.</div>
       </div>
+      <p style="margin-top:20px"><a :href="withBase('/benchmarks')">See the full benchmarks — methodology &amp; how to reproduce →</a></p>
 
     </div>
   </section>
@@ -369,6 +370,7 @@ onUnmounted(stop)
             <a :href="SPEC" target="_self">Specification</a>
             <a :href="withBase('/faq')">FAQ</a>
             <a :href="withBase('/roadmap')">Roadmap</a>
+            <a :href="withBase('/benchmarks')">Benchmarks</a>
             <a :href="withBase('/why') + '#how-to-cite'">How to cite</a>
             <a :href="WHITEPAPER">White paper</a>
           </div>
