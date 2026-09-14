@@ -17,43 +17,14 @@ const SPEC = withBase('/spec/')
 const WHITEPAPER = 'https://pubs.acs.org/doi/full/10.1021/acs.jproteome.5c00435'
 const EXAMPLES = 'https://data.mzpeak.org/v09/index.html'
 
-// The three real, public dataset families in the mzML2mzPeak example corpus,
-// each with its "size through the conversion chain" overview figure.
-const families = [
-  {
-    img: '/figures/mass-spec-ratios.png',
-    href: 'https://data.mzpeak.org/v09/mass-spec.html',
-    name: 'General MS data',
-    w: 941, h: 751,
-    alt: 'Compression overview for general MS data: raw 100%, mzML ~181%, mzPeak ~50%.',
-    desc: 'LC-/GC-MS across six instrument vendors. mzML typically inflates past the vendor raw file; mzPeak lands at about half of it.',
-  },
-  {
-    img: '/figures/imaging-ratios.png',
-    href: 'https://data.mzpeak.org/v09/imaging.html',
-    name: 'Imaging MS (MSI)',
-    w: 772, h: 751,
-    alt: 'Compression overview for imaging MS: raw 100%, mzPeak ~35%.',
-    desc: 'imzML imaging runs with per-pixel coordinates and embedded optical images — the whole image at roughly a third of the source.',
-  },
-  {
-    img: '/figures/sdrf-ratios.png',
-    href: 'https://data.mzpeak.org/v09/sdrf.html',
-    name: 'Study-design embedding',
-    w: 941, h: 751,
-    alt: 'Compression overview for study-design datasets: raw 100%, mzML ~194%, mzPeak ~45%.',
-    desc: 'Studies that carry their SDRF / ISA sample annotation alongside the data — kept in the archive, still near 45%.',
-  },
-]
-
 // Hero figure carousel — figures from the mzPeak white paper / deck + live viewers.
 const slides = [
   { src: '/hero/container.png', caption: 'Parquet tables in one container',
     alt: 'The mzPeak abstract figure: a shipping container labelled “mzPeak / Parquet” holding spectra and metadata.' },
   { src: '/hero/anatomy.png', caption: 'Anatomy of an mzPeak archive',
     alt: 'Diagram of an mzPeak archive: a JSON index plus Parquet tables for spectrum and chromatogram data and metadata, inside one container.' },
-  { src: '/figures/corpus-ratios.png', caption: 'Smaller than mzML, losslessly',
-    alt: 'Whole-corpus size comparison across 48 datasets: vendor raw at 100%, mzML averaging 132% (routinely larger than raw), and mzPeak at 45% (median 41%).' },
+  { src: '/figures/corpus-ratios.png', caption: 'A fraction of the original, losslessly',
+    alt: 'mzPeak compression by dataset family across 50 datasets: mzPeak is about 53% of the original file on average (study-design ~35%, imaging ~44%, general MS ~50%, TOF/IMS ~69%). Original = vendor RAW where available, else the source mzML.' },
   { src: '/hero/explorer.png', caption: 'Open any file in your browser',
     alt: 'The mzPeak Viewer showing a loaded run — summary, spectra and chromatograms — streamed in the browser.' },
   { src: '/hero/mzpeakiv.png', caption: 'MS-imaging in the browser',
@@ -592,25 +563,6 @@ onUnmounted(stop)
 .m-index { background: #e7f3e8; color: var(--green-700); }
 .m-other { background: var(--surface-panel); color: var(--text-muted); }
 
-/* ── Data families (mzML2mzPeak corpus overview figures) ─── */
-.families { margin-top: 72px; }
-.families-head { max-width: 680px; }
-.families-head h3 { font-size: clamp(1.4rem, 2vw, 1.75rem); font-weight: var(--weight-semibold); margin-top: 14px; }
-.families-head p { margin: 16px 0 0; font-size: var(--text-md); color: var(--text-secondary); line-height: 1.6; }
-.families-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 36px; }
-.family {
-  margin: 0; display: flex; flex-direction: column;
-  background: var(--surface-card); border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg); padding: 14px;
-  transition: var(--transition-ui), transform var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
-}
-.family:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); border-color: var(--border-strong); }
-.family a { display: block; }
-.family img { width: 100%; height: auto; display: block; border-radius: var(--radius-md); background: #fff; }
-.family figcaption { padding: 14px 6px 4px; }
-.family .fam-name { font-size: var(--text-title); font-weight: var(--weight-semibold); color: var(--text-heading); }
-.family figcaption p { margin: 6px 0 0; font-size: var(--text-sm); color: var(--text-muted); line-height: var(--leading-snug); }
-
 /* ── Benchmark chart (real corpus) ──────────────────────── */
 .bench { margin-top: 46px; display: flex; flex-direction: column; gap: 13px; }
 .bench-row { display: grid; grid-template-columns: 244px 1fr 66px; gap: 20px; align-items: center; }
@@ -667,7 +619,6 @@ onUnmounted(stop)
   .stats-in { grid-template-columns: repeat(2, 1fr); }
   .feat-grid { grid-template-columns: 1fr; }
   .anatomy { grid-template-columns: 1fr; gap: 36px; }
-  .families-grid { grid-template-columns: 1fr; max-width: 460px; }
   .bench-row { grid-template-columns: 150px 1fr 52px; gap: 12px; }
   .bench-x { font-size: var(--text-md); }
   .eco-grid { grid-template-columns: 1fr; }
