@@ -31,7 +31,7 @@ Across the broader corpus, mzPeak is on average **about 53 % of the original fil
 — the vendor RAW where available, else the source mzML — and far smaller for imaging and study-design
 data. (mzML, by contrast, routinely exceeds 100 % of RAW.)
 
-![mzPeak compression by dataset family (n = 50 datasets): mzPeak averages 53% of the original file — study-design ~35%, imaging ~44%, general MS ~50%, TOF/IMS ~69%](/figures/corpus-ratios.png)
+![mzPeak compression by dataset family (n = 50 datasets): mzPeak averages 53% of the original file — study-design ~35%, imaging ~44%, general MS ~51%, TOF/IMS ~69%](/figures/corpus-ratios.png)
 
 ## Random access
 

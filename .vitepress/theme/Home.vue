@@ -24,7 +24,7 @@ const slides = [
   { src: '/hero/anatomy.png', caption: 'Anatomy of an mzPeak archive',
     alt: 'Diagram of an mzPeak archive: a JSON index plus Parquet tables for spectrum and chromatogram data and metadata, inside one container.' },
   { src: '/figures/corpus-ratios.png', caption: 'A fraction of the original, losslessly',
-    alt: 'mzPeak compression by dataset family across 50 datasets: mzPeak is about 53% of the original file on average (study-design ~35%, imaging ~44%, general MS ~50%, TOF/IMS ~69%). Original = vendor RAW where available, else the source mzML.' },
+    alt: 'mzPeak compression by dataset family across 50 datasets: mzPeak is about 53% of the original file on average (study-design ~35%, imaging ~44%, general MS ~51%, TOF/IMS ~69%). Original = vendor RAW where available, else the source mzML.' },
   { src: '/hero/explorer.png', caption: 'Open any file in your browser',
     alt: 'The mzPeak Viewer showing a loaded run — summary, spectra and chromatograms — streamed in the browser.' },
   { src: '/hero/mzpeakiv.png', caption: 'MS-imaging in the browser',
