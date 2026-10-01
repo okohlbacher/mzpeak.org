@@ -49,6 +49,24 @@ a quickstart, and the full read/write support matrix.
 
 </div>
 
+## Readers
+
+Tools that read mzPeak archives straight into other ecosystems.
+
+<div class="build-grid">
+
+  <div class="build-card">
+    <div class="build-head"><span class="build-badge b-read">Reader</span><span class="build-stat">Python</span></div>
+    <strong class="build-title">Thyra</strong>
+    <p>Reads mzPeak imaging archives — chunked and point layout, position columns, <code>position_offset</code>, Bruker regions, embedded images — and writes SpatialData for spatial-omics analysis. By M4i, Maastricht University.</p>
+    <div class="build-links">
+      <a href="https://m4i-imaging-mass-spectrometry.github.io/thyra/" target="_blank" rel="noopener">Documentation ↗</a>
+      <a href="https://github.com/M4i-Imaging-Mass-Spectrometry/thyra" target="_blank" rel="noopener" aria-label="Thyra on GitHub">GitHub ↗</a>
+    </div>
+  </div>
+
+</div>
+
 > **On the roadmap:** a direct **vendor RAW → mzPeak** path (e.g. inside ProteoWizard `msconvert`) so every
 > vendor format converts in one step, embedding the original acquisition method as provenance.
 
