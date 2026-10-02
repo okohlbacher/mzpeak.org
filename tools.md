@@ -1,9 +1,9 @@
 # Build with mzPeak
 
 Everything around mzPeak is open source — a specification, reference libraries in seven
-languages (read across all; Rust and C# also write), converters, a conformance validator, and an
-in-browser viewer. Pick a starting point — or see [Why mzPeak](/why) for the mzML comparison,
-a quickstart, and the full read/write support matrix.
+languages (read across all; Rust and C# also write), converters, a conformance validator, an
+in-browser viewer, and third-party readers. Pick a starting point — or see [Why mzPeak](/why) for
+the mzML comparison, a quickstart, and the full read/write support matrix.
 
 <div class="build-grid">
 
@@ -44,6 +44,24 @@ a quickstart, and the full read/write support matrix.
     <div class="build-links">
       <a href="https://www.mzpeak.org/validator/" target="_blank" rel="noopener">Open validator ↗</a>
       <a href="https://github.com/okohlbacher/mzPeakValidator" target="_blank" rel="noopener" aria-label="mzPeak Validator on GitHub">GitHub ↗</a>
+    </div>
+  </div>
+
+</div>
+
+## Readers
+
+Tools that read mzPeak archives straight into other ecosystems.
+
+<div class="build-grid">
+
+  <div class="build-card">
+    <div class="build-head"><span class="build-badge b-read">Reader</span><span class="build-stat">Python</span></div>
+    <strong class="build-title">Thyra</strong>
+    <p>Reads mzPeak imaging archives — chunked and point layout, position columns, <code>position_offset</code>, Bruker regions, embedded images — and writes SpatialData for spatial-omics analysis. Thyra marks its mzPeak input as experimental. By M4i, Maastricht University.</p>
+    <div class="build-links">
+      <a href="https://m4i-imaging-mass-spectrometry.github.io/thyra/" target="_blank" rel="noopener">Documentation ↗</a>
+      <a href="https://github.com/M4i-Imaging-Mass-Spectrometry/thyra" target="_blank" rel="noopener" aria-label="Thyra on GitHub">GitHub ↗</a>
     </div>
   </div>
 

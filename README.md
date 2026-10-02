@@ -24,7 +24,7 @@ npm run preview    # serve the built site
 .
 ├── index.md              # home (hero + feature cards)
 ├── about.md              # what / why mzPeak
-├── tools.md              # spec, reference impl, converter, validator, viewers
+├── tools.md              # spec, reference impl, converter, validator, viewers, readers
 ├── examples.md           # live data corpus + browser viewers
 ├── .vitepress/config.mts # site config (nav, theme)
 ├── public/
